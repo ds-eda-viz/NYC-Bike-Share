@@ -7,9 +7,9 @@ This is a template for the EDAV final project. It is based on the template creat
 
 ### Copy this template
 
-- [ ] 1. Click the green "Use this template" button above.  DO NOT FORK THE REPO. Choose a descriptive name for your repo, such as "federalbudget" or "AIDSdeaths".  (If you change your mind before you do any work, delete your new repo and start over.)
+- [x] 1. Click the green "Use this template" button above.  DO NOT FORK THE REPO. Choose a descriptive name for your repo, such as "federalbudget" or "AIDSdeaths".  (If you change your mind before you do any work, delete your new repo and start over.)
 
-- [ ] 2. In the Description field, write: "Bookdown source files for EDAV final project".
+- [x] 2. In the Description field, write: "Bookdown source files for EDAV final project".
 
 ### Set up GitHub Pages	
 - [ ] 1. On the home page of your repo, click Settings. Scroll down to the GitHub pages section and change **Source** from **None** to **main**, change **/ (root)** to **/docs** folder, and click Save. Above the **Source** line, a bar will appear with your book's URL. The bar will initially be blue and indicate that your book is *ready* to be published and will change to green once it is published. Copy the URL. (Note that sometimes there is a delay until your book actually appears at that URL. If it doesn't appear after a few minutes, make a change and commit it to trigger a GitHub Pages build.)	
