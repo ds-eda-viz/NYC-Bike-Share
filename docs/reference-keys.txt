@@ -1,0 +1,10 @@
+introduction
+data-sources
+download.filehttpss3.amazonaws.comtripdata201502-citibike-tripdata.zip
+destfilecusersxiaonandesktopfall-20205702final-projectfinal_project_5702201502.zip
+file-url
+data-transformation
+missing-values
+results
+interactive-component
+conclusion
