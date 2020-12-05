@@ -1,1 +1,116 @@
 # Data transformation
+test it
+**Part 1 Basic exploration of variables **  
+ -- continuous  
+-- categorical  
+Histogram  
+Boxplot  
+Bar chart  
+....
+You may not ride a Bicycle if You are under 16 years of age. A minor who is 16 years of age or older may only use the Services if the minor’s subscription is purchased by, and the minor is under the responsibility of, the minor’s parent or legal guardian.  
+https://assets.citibikenyc.com/rental-agreement.html  
+\newline
+
+```{r}
+library(tidyverse)
+data_201806 <- read.csv("data/201806-citibike-tripdata.csv",sep=",")
+```
+
+```{r}
+data_201906 <- read.csv("data/201906-citibike-tripdata.csv",sep=",")
+```
+
+```{r}
+data_202006 <- read.csv("data/202006-citibike-tripdata.csv",sep=",")
+```
+
+```{r}
+str(data_201806)
+```
+
+```{r}
+#Add Age column
+data_201806$age=2020-data_201806$birth.year
+```
+
+```{r}
+data_201806$year_month="201806"
+```
+
+```{r}
+str(data_201806)
+```
+## Variable outliers  
+We want to check tripduration and age  
+\newline
+Identifying outliers using plots and fitting models is relatively easy compared to what to do after identifying the outliers. Outliers can be rare cases, unusual values, or genuine errors. Genuine errors must be corrected if possible or else they must be removed.  
+\newline
+
+```{r}
+ggplot(data_201806, aes(x=tripduration)) +
+geom_boxplot(color = "darkgrey", fill = "lightBlue") +
+ggtitle("201806-tripduration-distribution")
+```
+
+```{r}
+# we created a column to categorize tripduration  
+# website data source already removed duration less than 60 secs
+data_201806$tripduration.bin<-sapply(data_201806$tripduration, function(x) 
+                                           if (x<=3600) "less than 1h"
+                                      else if (x<= 21600) "1h to 6h"
+                                      else if (x<= 43200) "6h to 12h"
+                                      else if (x<=86400) "12h to 24h"
+                                      else if (x>86400) "more than 24h")
+                                  
+```
+
+```{r}
+str(data_201806)
+```
+
+```{r}
+data_201806 %>%
+  mutate(tripduration.bin=fct_relevel(tripduration.bin, c("less than 1h",
+                                                          "1h to 6h",
+                                                          "6h to 12h",
+                                                          "12h to 24h",
+                                                          "more than 24h"))) %>%
+  ggplot(aes(x = tripduration.bin)) +
+  geom_bar(color="black", fill = "lightblue") +
+  ggtitle("201806-tripduration-distribution")
+```
+
+```{r}
+ggplot(data_201806, aes(x=age)) +
+geom_boxplot( fill = "lightBlue") +
+ggtitle("201806-Age-distribution")
+```
+
+
+```{r}
+ggplot(data_201806, aes(x=age)) +
+geom_histogram(color="black", fill = "lightblue", binwidth=5) +
+ggtitle("201806-Age-distribution")
+```
+
+
+```{r}
+ggplot(data_201806, aes(x=age, y=tripduration)) + 
+  geom_point(color="blue") +
+  ggtitle("Scatterplot for tripduration vs Age")
+
+```
+
+\newline
+After checking data_201806,we did same analysis for data_201906, data_202006 as well
+
+```{r}
+
+```
+
+
+
+**Part 2 Data Transformation **  
+
+
+

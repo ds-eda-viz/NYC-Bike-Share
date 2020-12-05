@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Data sources | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 2 Data sources | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 2 Data sources | NYC-Citibike</title>
+  <meta name="description" content="Chapter 2 Data sources | NYC-Citibike" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Data sources | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 2 Data sources | NYC-Citibike" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Data sources | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 2 Data sources | NYC-Citibike" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134), Jiayin Lin (jl5802)" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2020-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="data-transformation.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,7 +50,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 
@@ -68,11 +66,15 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">NYC-citibike</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a><ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#download.filehttpss3.amazonaws.comtripdata201502-citibike-tripdata.zip"><i class="fa fa-check"></i><b>2.1</b> download.file('<a href="https://s3.amazonaws.com/tripdata/201502-citibike-tripdata.zip" class="uri">https://s3.amazonaws.com/tripdata/201502-citibike-tripdata.zip</a>',</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#destfilecusersxiaonandesktopfall-20205702final-projectfinal_project_5702201502.zip"><i class="fa fa-check"></i><b>2.2</b> destfile=&quot;C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/final_project_5702/201502.zip&quot;)</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#file-url"><i class="fa fa-check"></i><b>2.3</b> file url</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
@@ -89,7 +91,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NYC-Citibike</a>
           </h1>
         </div>
 
@@ -97,9 +99,25 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-sources" class="section level1" number="2">
+<div id="data-sources" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
+<p>library(tidyverse) library(rvest) library(robotstxt)</p>
+<p>paths_allowed(&quot;<a href="https://s3.amazonaws.com/tripdata/index.html" class="uri">https://s3.amazonaws.com/tripdata/index.html</a>&quot;)</p>
+<p>paths_allowed(&quot;<a href="https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip</a>&quot;)</p>
+<div id="download.filehttpss3.amazonaws.comtripdata201502-citibike-tripdata.zip" class="section level2">
+<h2><span class="header-section-number">2.1</span> download.file('<a href="https://s3.amazonaws.com/tripdata/201502-citibike-tripdata.zip" class="uri">https://s3.amazonaws.com/tripdata/201502-citibike-tripdata.zip</a>',</h2>
+</div>
+<div id="destfilecusersxiaonandesktopfall-20205702final-projectfinal_project_5702201502.zip" class="section level2">
+<h2><span class="header-section-number">2.2</span> destfile=&quot;C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/final_project_5702/201502.zip&quot;)</h2>
+</div>
+<div id="file-url" class="section level2">
+<h2><span class="header-section-number">2.3</span> file url</h2>
+<p>url_list = list( &quot;<a href="https://s3.amazonaws.com/tripdata/201801-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201801-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201802-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201802-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201803-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201803-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201804-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201804-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201805-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201805-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201806-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201806-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201807-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201807-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201808-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201808-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201809-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201809-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201810-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201810-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201812-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201812-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201901-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201901-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201902-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201902-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201903-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201903-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201904-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201904-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201905-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201905-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201906-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201906-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201907-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201907-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201908-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201908-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201909-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201909-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201910-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201910-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201911-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201911-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/201912-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201912-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/202001-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202001-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/202002-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202002-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/202003-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202003-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/202004-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202004-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/202005-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202005-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/202006-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202006-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/202007-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202007-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/202008-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202008-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/202009-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202009-citibike-tripdata.csv.zip</a>&quot;, &quot;<a href="https://s3.amazonaws.com/tripdata/202010-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202010-citibike-tripdata.csv.zip</a>&quot; )</p>
+<p>url_list =unlist(url_list)</p>
+<p>l=length(url_list)</p>
+<p>for (i in 1 : l) { download.file(url_list[i], destfile=paste(&quot;C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/final_project_5702/&quot;,substr(url_list[i],35,40),&quot;.zip&quot;)) }</p>
 
+</div>
 </div>
             </section>
 
@@ -138,7 +156,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/02-data.Rmd",
+"link": "https://github.com/Jiayin98/NYC-Bike-Share/edit/main/02-data.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -146,7 +164,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/02-data.Rmd",
+"link": "https://github.com/Jiayin98/NYC-Bike-Share/blob/main/02-data.Rmd",
 "text": null
 },
 "download": null,
