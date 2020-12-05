@@ -9,8 +9,8 @@ paths_allowed("https://s3.amazonaws.com/tripdata/index.html")
 paths_allowed("https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip")
 
 
-##download.file('https://s3.amazonaws.com/tripdata/201502-citibike-tripdata.zip',
-##              destfile="C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/final_project_5702/201502.zip")
+## ownload.file('https://s3.amazonaws.com/tripdata/201502-citibike-tripdata.zip',
+##               destfile="C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/final_project_5702/201502.zip")
 
 
 
@@ -59,7 +59,7 @@ l=length(url_list)
   
 for (i in 1 : l) {
   download.file(url_list[i],
-                destfile=paste("C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/final_project_5702/",substr(url_list[i],35,40),".zip"))
+                destfile=paste("/Users/jiayin/Desktop/Bike Data",substr(url_list[i],35,40),".zip"))
   }  
 
 
