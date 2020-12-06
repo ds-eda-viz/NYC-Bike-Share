@@ -17,5 +17,8 @@ head(df)
 ```
 
 ```{r}
-ggplot(df, )
+df[,'year']<-factor(df[,'year'])
+df[,'month']<-factor(df[,'month'])
+ggplot(df, aes(x=month, y = num_trips, group = year, color = year)) + geom_line() + facet_grid(rows = vars(year)) + 
+  ggtitle("Number of Trips by Year") + xlab("Month") + ylab("Trips")
 ```
