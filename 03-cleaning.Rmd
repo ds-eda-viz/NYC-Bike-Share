@@ -1,5 +1,5 @@
 # Data transformation
-test it
+
 **Part 1 Basic exploration of variables **  
  -- continuous  
 -- categorical  
@@ -89,7 +89,7 @@ ggtitle("201806-Age-distribution")
 
 ```{r}
 ggplot(data_201806, aes(x=age)) +
-geom_histogram(color="black", fill = "lightblue", binwidth=5) +
+geom_histogram(color="black", fill = "steelblue1", binwidth=5) +
 ggtitle("201806-Age-distribution")
 ```
 
