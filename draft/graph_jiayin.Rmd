@@ -1,0 +1,21 @@
+---
+title: "Graph_jiayin"
+author: "Jiayin Lin"
+date: "12/6/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+df <- read.csv("/Users/jiayin/Desktop/monthly_usage_filtered.csv")
+head(df)
+```
+
+```{r}
+ggplot(df, )
+```
