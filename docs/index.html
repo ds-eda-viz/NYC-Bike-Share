@@ -24,7 +24,7 @@
 <meta name="author" content="Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134), Jiayin Lin (jl5802)" />
 
 
-<meta name="date" content="2020-12-05" />
+<meta name="date" content="2020-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,6 @@
   
 
 <link rel="next" href="data-sources.html"/>
-<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +50,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
@@ -73,9 +73,10 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
-<ul>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a><ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#destfilecusersxiaonandesktopfall-20205702final-projectfinal_project_5702201502.zip"><i class="fa fa-check"></i><b>2.1</b> destfile=“C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/final_project_5702/201502.zip”)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#variable-outliers"><i class="fa fa-check"></i><b>3.1</b> Variable outliers</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
@@ -104,10 +105,30 @@
 <div id="header">
 <h1 class="title">NYC-Citibike</h1>
 <p class="author"><em>Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134), Jiayin Lin (jl5802)</em></p>
-<p class="date"><em>2020-12-05</em></p>
+<p class="date"><em>2020-12-11</em></p>
 </div>
-<div id="introduction" class="section level1" number="1">
+<div id="introduction" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
+<p>This project is inspired by Todd W. Schneider who is the Author of “A Tale of Twenty-Two Million Citi Bike Rides: Analyzing the NYC Bike Share System”.[]<a href="https://toddwschneider.com/posts/a-tale-of-twenty-two-million-citi-bikes-analyzing-the-nyc-bike-share-system/#citibike-data" class="uri">https://toddwschneider.com/posts/a-tale-of-twenty-two-million-citi-bikes-analyzing-the-nyc-bike-share-system/#citibike-data</a></p>
+<blockquote>
+<p>"
+Citi Bike is a privately owned public bicycle sharing system serving the New York City boroughs of the Bronx, Brooklyn, Manhattan, and Queens, as well as Jersey City, New Jersey. Named after lead sponsor Citigroup, it is operated by Motivate (formerly Alta Bicycle Share), with former Metropolitan Transportation Authority CEO Jay Walder as chief executive until September 30, 2018[1] when the company was acquired by Lyft. The system’s bikes and stations use BIXI-branded technology from PBSC Urban Solutions.</p>
+</blockquote>
+<blockquote>
+<p>First proposed in 2008 by the New York City Department of Transportation, Citi Bike’s scheduled 2011 opening was delayed by Hurricane Sandy and technological problems. It officially opened in May 2013 with 332 stations and 6,000 bikes. Annual expansions have brought the totals to 706 stations and 12,000 bikes as of October 2017, making the service the largest bike sharing program in the United States. Further expansions for Citi Bike are planned to extend its service area across the Bronx, Brooklyn, Manhattan, and Queens, and increase the number of bikes to 40,000."
+–[Wiki Link]<a href="https://en.wikipedia.org/wiki/Citi_Bike" class="uri">https://en.wikipedia.org/wiki/Citi_Bike</a>.</p>
+</blockquote>
+<p>In 2020, due to the COVID 19 Pandemic, New York City implemented the lock down and social distance policy. Many Companies requires employees to work from home instead of going to office everyday. We want to analyze the pandemic’s influence on New York City residents, specially for 1.6M Manhattan residents who use Citi Bike as part of their commute tools.</p>
+<p>In our project, we will break up by different topics:</p>
+<ol style="list-style-type: decimal">
+<li><p>The daily usage of Citi Bike by years (2018, 2019,2020)</p></li>
+<li><p>The Membership analysis (Age, Gender, Annual memberships or Subscriber)</p></li>
+<li><p>Time Series on Bike Usage (2018 -2020)</p></li>
+<li><p>Weekday/Weekend Usage</p></li>
+<li><p>Weather and Temperature affects on the Bike usage</p></li>
+<li><p>Bike users’ routes pattern (How people use it as the commute tool)</p></li>
+<li><p>Top 5 most popular and the lest popular trips</p></li>
+</ol>
 
 </div>
             </section>
