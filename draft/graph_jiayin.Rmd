@@ -1,0 +1,34 @@
+---
+title: "Graph_jiayin"
+author: "Jiayin Lin"
+date: "12/6/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+df_1 <- read.csv("/Users/jiayin/Desktop/monthly_usage.csv")
+head(df_1)
+```
+
+```{r}
+df_1[,'year']<-factor(df_1[,'year'])
+df_1[,'month']<-factor(df_1[,'month'])
+ggplot(df_1, aes(x=month, y = num_trips, group = year, color = year)) + geom_line() + facet_grid(rows = vars(year)) + ggtitle("Number of Trips by Year") + xlab("Month") + ylab("Trips")
+```
+
+```{r}
+df_2 = read.csv("/Users/jiayin/Desktop/weekend_weekday_dist.csv")
+df_2
+```
+
+```{r}
+df_2[,'is_weekend']<-factor(df_2[,'is_weekend'])
+df_2[,'hour']<-factor(df_2[,'hour'])
+ggplot(df_2, aes(x=hour, y = total_num_trips, group = is_weekend)) + geom_bar(stat="identity", fill = "steelblue1") + facet_grid(rows = vars(is_weekend)) + ggtitle("Number of Trips by Hour") + xlab("Hour") + ylab("Trips")
+```

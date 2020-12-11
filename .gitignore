@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+python/.ipynb_checkpoints/get_county_from_location-checkpoint.ipynb
+*.lnk
