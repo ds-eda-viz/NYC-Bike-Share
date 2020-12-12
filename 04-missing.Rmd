@@ -1,2 +1,72 @@
 # Missing values
 
+
+For simplicity of the analysis, we extracted abnormal data (missing data, outliers) using SQL and gathered the result into 2 csv files, abnormal_data.csv and abnormal_location.csv. To explore the missing value patterns, we only need abnormal_data.csv.
+
+```{r}
+library(dplyr)
+library(mi)
+library(ggplot2)
+library(forcats)
+```
+
+
+```{r}
+abnormal_data = read.csv("rendered_data/abnormal_data.csv", na.strings = "NULL")
+```
+
+## Missing values by Column and Row
+
+```{r}
+col_missing = colSums(is.na(abnormal_data))%>%sort(decreasing = TRUE)
+col_missing
+```
+
+```{r}
+df = data.frame(Column = fct_reorder(names(col_missing), col_missing), missing_count = col_missing)
+
+
+ggplot(df, aes(x = Column, y = missing_count)) + ggtitle("Missing Count of Each Column") +
+  geom_col(fill = "steelblue1") + coord_flip()
+```
+
+We can see that all missing entries are in 4 columns, the start station's name, id, and the end station's name id. The 4 columns have the __same__ missing value count of __2677__. In fact, it can be observed that if a row contains a missing value, all 4 columns (start station name, start station id, end station name, end station id) will contain missing values.
+
+```{r}
+row_missing = data.frame(table(rowSums(is.na(abnormal_data))))
+names(row_missing) <- c('missing_count', 'row_count')
+```
+
+```{r}
+row_missing
+```
+
+```{r}
+ggplot(row_missing, aes(x = missing_count, y = row_count)) + ggtitle("Missing Count of Rows") + 
+  geom_col(fill = "steelblue1")
+```
+
+We can see that there are __2677__ rows that contain 4 missing entries, and other rows don't have any missing entries. This verifies that if a row contains a missing value, all 4 columns (start station name, start station id, end station name, end station id) will be missing.
+
+## Missing pattern by Year and Month
+
+```{r}
+monthly_missing = read.csv("rendered_data/monthly_missing.csv")
+monthly_missing$month = as.factor(monthly_missing$month)
+```
+
+
+```{r}
+ggplot(monthly_missing, aes(x=month, y=num_trips)) + geom_col(fill="steelblue1") + ggtitle("Missing Count of Each Month") + facet_grid(monthly_missing$year)
+```
+
+The plot above shows that there are many missing entries in 2018, especially 2018-08, with more than 1000 rows that have missing values. There are only a few missing rows in 2019, and there are no missing rows in 2020. 
+
+## Dealing with missing values
+
+We decided that we discard all these rows that contain missing values and outliers __before__ we conduct any further analysis. 
+
+It should be noted that there are only 2677 rows that contains missing values. If we include rows that have outliers, we only need to discard about 50000 rows. Comparing to the overall data size of about 55 million rows, we are only throwing away a small portion, which will not largely impact our analysis.
+
+
+
