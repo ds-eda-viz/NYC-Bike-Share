@@ -1,5 +1,6 @@
 # Missing values
 
+
 For simplicity of the analysis, we extracted abnormal data (missing data, outliers) using SQL and gathered the result into 2 csv files, abnormal_data.csv and abnormal_location.csv. To explore the missing value patterns, we only need abnormal_data.csv.
 
 ```{r}
@@ -66,19 +67,6 @@ The plot above shows that there are many missing entries in 2018, especially 201
 We decided that we discard all these rows that contain missing values and outliers __before__ we conduct any further analysis. 
 
 It should be noted that there are only 2677 rows that contains missing values. If we include rows that have outliers, we only need to discard about 50000 rows. Comparing to the overall data size of about 55 million rows, we are only throwing away a small portion, which will not largely impact our analysis.
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
