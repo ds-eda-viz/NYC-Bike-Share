@@ -2,6 +2,7 @@
 
 ***5.6 Bike Users' route pattern(How people use it as the commute tool)***
 
+
 ```{r}
 setwd("C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/NYC-Bike-Share")
 
