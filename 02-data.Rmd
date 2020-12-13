@@ -1,8 +1,13 @@
 # Data sources
 
 library(tidyverse)
+
 library(rvest)
+
 library(robotstxt)
+
+please change the destfile directory to your local folder in order to download the data file and run the code if you want to replicate the whole project.
+
 
 paths_allowed("https://s3.amazonaws.com/tripdata/index.html")
 

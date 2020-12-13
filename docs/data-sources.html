@@ -24,7 +24,7 @@
 <meta name="author" content="Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134), Jiayin Lin (jl5802)" />
 
 
-<meta name="date" content="2020-12-05" />
+<meta name="date" content="2020-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="data-transformation.html"/>
-<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +50,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
@@ -74,12 +74,23 @@
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
-<ul>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#variable-outliers"><i class="fa fa-check"></i><b>3.1</b> Variable outliers</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a><ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-column-and-row"><i class="fa fa-check"></i><b>4.1</b> Missing values by Column and Row</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-pattern-by-year-and-month"><i class="fa fa-check"></i><b>4.2</b> Missing pattern by Year and Month</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#dealing-with-missing-values"><i class="fa fa-check"></i><b>4.3</b> Dealing with missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#place-a-holder-for-5.1"><i class="fa fa-check"></i><b>5.1</b> place a holder for 5.1</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#place-a-holder-for-5.2"><i class="fa fa-check"></i><b>5.2</b> place a holder for 5.2</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#place-a-holder-for-5.3"><i class="fa fa-check"></i><b>5.3</b> place a holder for 5.3</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#place-a-holder-for-5.4"><i class="fa fa-check"></i><b>5.4</b> place a holder for 5.4</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#temerature-affects-on-the-bike-usage"><i class="fa fa-check"></i><b>5.5</b> Temerature affects on the Bike usage</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#bike-users-route-patternhow-people-use-it-as-the-commute-tool"><i class="fa fa-check"></i><b>5.6</b> Bike Users’ route pattern(How people use it as the commute tool)</a></li>
+<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#place-a-holder-for-5.7"><i class="fa fa-check"></i><b>5.7</b> place a holder for 5.7</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -101,11 +112,12 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-sources" class="section level1" number="2">
+<div id="data-sources" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
-<p>library(tidyverse)
-library(rvest)
-library(robotstxt)</p>
+<p>library(tidyverse)</p>
+<p>library(rvest)</p>
+<p>library(robotstxt)</p>
+<p>please change the destfile directory to your local folder in order to download the data file and run the code if you want to replicate the whole project.</p>
 <p>paths_allowed(“<a href="https://s3.amazonaws.com/tripdata/index.html" class="uri">https://s3.amazonaws.com/tripdata/index.html</a>”)</p>
 <p>paths_allowed(“<a href="https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip</a>”)</p>
 <p>##download.file(‘<a href="https://s3.amazonaws.com/tripdata/201502-citibike-tripdata.zip" class="uri">https://s3.amazonaws.com/tripdata/201502-citibike-tripdata.zip</a>’,
