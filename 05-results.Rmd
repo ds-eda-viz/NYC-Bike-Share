@@ -1,1 +1,272 @@
 # Results
+
+***5.6 Bike Users' route pattern(How people use it as the commute tool)***
+
+```{r}
+setwd("C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/NYC-Bike-Share")
+
+```
+
+
+```{r}
+##install this library if you do not have it
+#if(!require(devtools)) install.packages("devtools")
+#devtools::install_github("kassambara/ggpubr")
+
+#install.packages("ggpubr")
+
+
+
+####install package for ploting graphs in one figure
+
+```
+
+
+```{r}
+
+library(ggplot2)
+library(ggpubr)
+
+#use the above code to install ggpubr if you do not have it
+
+```
+
+
+```{r}
+##change directory
+##read data files
+
+
+
+df_2018 =read.csv('C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/borough_trips_201806.csv',sep =',')
+
+df_2019 =read.csv('C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/borough_trips_201906.csv',sep =',')
+
+df_2020 =read.csv('C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/borough_trips_202006.csv',sep =',')
+
+```
+
+
+```{r}
+###Mahanttan data
+
+man_2018 =df_2018[df_2018$start_borough=="Manhattan", ]
+
+man_2018_plot <- ggplot(data = man_2018, 
+                        aes(x=hour,
+                        y=total_num_trips/1000, 
+                        color =route))+
+  geom_point()+geom_line() +
+  ggtitle("2018 NYC Citi Bike Trips in Manhattan ", 
+          "Based on Citi Bike system data,  6/1/2018-6/30/2018") +
+  labs(x ="Trip Hours", y ="")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue1'))
+
+###2019
+man_2019 =df_2019[df_2019$start_borough=="Manhattan", ]
+
+man_2019_plot <- ggplot(data = man_2019, 
+                        aes(x=hour,
+                            y =total_num_trips/1000, 
+                            color =route))+
+  geom_point()+geom_line() +
+  ggtitle("2019 NYC Citi Bike Trips in Manhattan ", 
+          "Based on Citi Bike system data,  6/1/2019-6/30/2019") +
+  labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips(Thousands)")+
+  coord_cartesian(ylim = c(0, 150))+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'),
+        axis.title.y = element_text(size = 9))
+   
+
+
+###2020
+man_2020 =df_2020[df_2020$start_borough=="Manhattan", ]
+
+man_2020<-as.data.frame(man_2020)
+
+man_2020_plot <-  ggplot(data = man_2020, 
+                         aes(x=hour,
+                             y =total_num_trips/1000, 
+                             color =route))+
+  geom_point()+geom_line() +coord_cartesian(ylim = c(0, 150))+
+  ggtitle("2020 NYC Citi Bike Trips in Manhattan ", 
+          "Based on Citi Bike system data,  6/1/2020-6/30/2020") +
+  labs(x ="Trip Hours", y ="")+
+  theme_grey(9)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
+
+
+```
+
+```{r}
+
+
+ggarrange(man_2018_plot, man_2019_plot, man_2020_plot, 
+          label.y = 1,
+          align='hv',
+          #common.legend = TRUE,
+          ncol = 1, nrow = 3)
+```
+
+
+```{r}
+
+##Manhattan to Outers
+
+man_outer_2018 =df_2018[df_2018$start_borough=="Manhattan" & df_2018$end_borough!="Manhattan", ]
+
+man_outer_2018_plot <- ggplot(data = man_outer_2018, aes(x=hour,y =total_num_trips/1000, color =route))+
+  geom_point()+geom_line() +
+  ggtitle("2018 NYC Citi Bike Trips from Manhattan to outers ", 
+          "Based on Citi Bike system data,  6/1/2018-6/30/2018") +
+  labs(x ="Trip Hours", y =" ")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
+
+## 2019
+
+man_outer_2019 =df_2019[df_2019$start_borough=="Manhattan" &df_2019$end_borough!='Manhattan', ]
+
+man_outer_2019_plot <- ggplot(data = man_outer_2019, aes(x=hour,y =total_num_trips/1000, color =route))+
+  geom_point()+geom_line() +
+  ggtitle("2019 NYC Citi Bike Trips from Manhattan to outers ", 
+          "Based on Citi Bike system data,  6/1/2019-6/30/2019") +
+  labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips(Thousands)")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'),
+        axis.title.y = element_text(size = 9))
+
+##2020
+
+man_outer_2020 =df_2020[df_2020$start_borough=="Manhattan"&df_2020$end_borough!='Manhattan', ]
+
+man_outer_2020 <-as.data.frame(man_outer_2020)
+
+man_outer_2020_plot <-  ggplot(data = man_outer_2020, aes(x=hour,y =total_num_trips/1000, color =route))+
+  geom_point()+geom_line() +coord_cartesian(ylim = c(0, 7))+
+  ggtitle("2020 NYC Citi Bike Trips from Manhattan to outers ", 
+          "Based on Citi Bike system data,  6/1/2020-6/30/2020") +
+  labs(x ="Trip Hours", y =" ")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
+
+```
+
+
+```{r}
+##Manhattan to outers
+ggarrange(man_outer_2018_plot, man_outer_2019_plot, man_outer_2020_plot, 
+          label.y = 1,
+          align='hv',
+          ncol = 1, nrow = 3)
+
+```
+
+
+```{r}
+####Queens to outer
+
+###2018
+
+qn_outer_2018 =df_2018[df_2018$start_borough=="Queens" & df_2018$end_borough!="Queens", ]
+
+qn_outer_2018_plot <- ggplot(data = qn_outer_2018, aes(x=hour,y =total_num_trips, color =route))+
+  geom_point()+geom_line() +coord_cartesian(ylim = c(0, 1500))+
+  ggtitle("2018 NYC Citi Bike Trips from Queens to outers ", 
+          "Based on Citi Bike system data,  6/1/2018-6/30/2018") +
+  labs(x ="Trip Hours", y =" ")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue1'))
+
+###2019
+
+qn_outer_2019 =df_2019[df_2019$start_borough=="Queens" &df_2019$end_borough!='Queens', ]
+
+qn_outer_2019_plot <- ggplot(data = qn_outer_2019, aes(x=hour,y =total_num_trips, color =route))+
+  geom_point()+geom_line() +coord_cartesian(ylim = c(0, 1500))+
+  ggtitle("2019 NYC Citi Bike Trips from Queens to outers ", 
+          "Based on Citi Bike system data,  6/1/2019-6/30/2019") +
+  labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'),
+        axis.title.y = element_text(size = 9))
+
+
+qn_outer_2020 <- df_2020[df_2020$start_borough=="Queens"&df_2020$end_borough!='Queens', ]
+
+qn_outer_2020 <- as.data.frame(qn_outer_2020)
+
+qn_outer_2020_plot <-  ggplot(data = qn_outer_2020, aes(x=hour,y =total_num_trips, color =route))+
+  geom_point()+geom_line() +coord_cartesian(ylim = c(0, 1500))+
+  ggtitle("2020 NYC Citi Bike Trips from Queens to outers ", 
+          "Based on Citi Bike system data,  6/1/2020-6/30/2020") +
+  labs(x ="Trip Hours", y =" ")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue1'))
+
+```
+
+
+
+```{r}
+###Queens to Outers
+
+ggarrange(qn_outer_2018_plot, qn_outer_2019_plot, qn_outer_2020_plot, 
+          label.y = 1,
+          align='hv',
+          ncol = 1, nrow = 3)
+```
+
+
+
+
+```{r}
+##Brooklyn to outers
+
+bk_outer_2018 =df_2018[df_2018$start_borough=="Brooklyn" & df_2018$end_borough!="Brooklyn", ]
+
+bk_outer_2018_plot <- ggplot(data = bk_outer_2018, aes(x=hour,y =total_num_trips, color =route))+
+  geom_point()+geom_line() +
+  ggtitle("2018 NYC Citi Bike Trips from Brooklyn to outers ", 
+          "Based on Citi Bike system data,  6/1/2018-6/30/2018") +
+  labs(x ="Trip Hours", y =" ")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue1'))
+
+bk_outer_2019 =df_2019[df_2019$start_borough=="Brooklyn" &df_2019$end_borough!='Brooklyn', ]
+
+bk_outer_2019_plot <- ggplot(data = bk_outer_2019, aes(x=hour,y =total_num_trips, color =route))+
+  geom_point()+geom_line() +
+  ggtitle("2019 NYC Citi Bike Trips from Brooklyn to outers ", 
+          "Based on Citi Bike system data,  6/1/2019-6/30/2019") +
+ labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'),
+        axis.title.y = element_text(size = 9))
+
+bk_outer_2020 =df_2020[df_2020$start_borough=="Brooklyn"&df_2020$end_borough!='Brooklyn', ]
+
+bk_outer_2020 <-as.data.frame(bk_outer_2020)
+
+bk_outer_2020_plot <-  ggplot(data = bk_outer_2020, aes(x=hour,y =total_num_trips, color =route))+
+  geom_point()+geom_line() +coord_cartesian(ylim = c(0, 6000))+
+  ggtitle("2020 NYC Citi Bike Trips from Brooklyn to outers ", 
+          "Based on Citi Bike system data,  6/1/2020-6/30/2020") +
+  labs(x ="Trip Hours", y =" ")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue1'))
+
+
+```
+
+```{r}
+
+###Brooklyn to Outers
+ggarrange(bk_outer_2018_plot, bk_outer_2019_plot, bk_outer_2020_plot, 
+          label.y = 1,
+          align='hv',
+          ncol = 1, nrow = 3)
+```
+

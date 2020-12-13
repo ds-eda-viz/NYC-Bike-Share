@@ -7,3 +7,6 @@ results
 interactive-component
 conclusion
 destfilecusersxiaonandesktopfall-20205702final-projectfinal_project_5702201502.zip
+missing-values-by-column-and-row
+missing-pattern-by-year-and-month
+dealing-with-missing-values
