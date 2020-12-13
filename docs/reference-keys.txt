@@ -10,3 +10,10 @@ destfilecusersxiaonandesktopfall-20205702final-projectfinal_project_5702201502.z
 missing-values-by-column-and-row
 missing-pattern-by-year-and-month
 dealing-with-missing-values
+temerature-affects-on-the-bike-usage
+place-a-holder-for-5.1
+place-a-holder-for-5.2
+place-a-holder-for-5.3
+place-a-holder-for-5.4
+bike-users-route-patternhow-people-use-it-as-the-commute-tool
+place-a-holder-for-5.7
