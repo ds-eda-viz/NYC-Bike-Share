@@ -1,16 +1,44 @@
 # Results
+## place a holder for 5.1
+## place a holder for 5.2
+## place a holder for 5.3
+## place a holder for 5.4
 
-***5.6 Bike Users' route pattern(How people use it as the commute tool)***
 
+## Temerature affects on the Bike usage  
+```{r}
+library(ggplot2)
+```
 
 ```{r}
-setwd("C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/NYC-Bike-Share")
+df =read.csv('rendered_data/monthly_usage_all.csv')
+```
 
+In this section, we will analyze the bike usage from temperature perspective. Trips are bellow 1 Million if the temperature bellow 45 degrees in 2018 and 2019, then every temperature goes up 10 degrees, the average usage goes up 0.5M. Only 2020 is an exception, we see a huge decrease from 45 - 55 degrees in 2020. I have did the analysis, usually March, April and May as average monthly temperature between 45 - 55. During this time, New York City takes very strict lock down policy. The New York State governor closed all the restaurants, gym, public parks and sports fields to prevent the spread of corona virus.
+Then the ride usage bounce back on Jun and July since the lock down policy has been released. With the summer approaching, the usage backs to normal level as 2018 and 2019.
+
+From the analysis, we can the best weather to take a ride would be 65 to 75 range, there are around 2Million people would choose Citibike over taking cars or subways in New York City. Let's go to take a ride on the Citibik when the weather is nice!
+
+```{r}
+df_2018 <-df[df$month<8,]
+
+
+ggplot(data =df_2018, aes(x=month, y=num_trips/1000000))+
+  geom_line(color ='steelblue2',size =1)+ facet_wrap(~year) +
+  scale_x_discrete(limits=c("25","35","45","55","65","75","85"))+
+  ggtitle(" NYC Citi Bike Usage with temperature ", 
+          "Based on Citi Bike system data,  2018 -2020 data")+
+  labs(x ="Temperature (F)", y ="Trips in Millions")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
 ```
 
 
+## Bike Users' route pattern(How people use it as the commute tool)
+
+
 ```{r}
-##install this library if you do not have it
+#install this library if you do not have it
 #if(!require(devtools)) install.packages("devtools")
 #devtools::install_github("kassambara/ggpubr")
 
@@ -21,7 +49,8 @@ setwd("C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/NYC-Bike-Share")
 ####install package for ploting graphs in one figure
 
 ```
-
+1. First, we took the data from Citibike official website, there are station location which can be mapped to different counties, we picked all the stations in Manhattan, Queens, Brooklyn as our main target to analyze the route pattern for riders. There are over 1.6 Millions residents in Manhattan, we can see 8 am - 10 am and 5 pm - 7pm are the peak hours for bike usages, average bike trips are over 100K times.It shows there are around 10% of Manhattan residents are using Citibike for their commute.2018 and 2019 has the same pattern, but 2018 the trip numbers drops to around 50K in morning rush hours, this is largely caused by COVID -19 pandemic, which companies require employee to work from home and the city implement lock down policy starts from end of March 2020 to July 2020.
+Majority of bike trips happen within the Manhattan, we want to analyze the cross-borough bike usage, we need to drop the Manhattan trips and analyze the Manhattan to Queens and Manhattan to Brooklyn trips, which will display in the next plot. 
 
 ```{r}
 
@@ -39,11 +68,11 @@ library(ggpubr)
 
 
 
-df_2018 =read.csv('C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/borough_trips_201806.csv',sep =',')
+df_2018 =read.csv('rendered_data/borough_trips_201806.csv',sep =',')
 
-df_2019 =read.csv('C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/borough_trips_201906.csv',sep =',')
+df_2019 =read.csv('rendered_data/borough_trips_201906.csv',sep =',')
 
-df_2020 =read.csv('C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/borough_trips_202006.csv',sep =',')
+df_2020 =read.csv('rendered_data/borough_trips_202006.csv',sep =',')
 
 ```
 
@@ -118,7 +147,7 @@ ggarrange(man_2018_plot, man_2019_plot, man_2020_plot,
 
 man_outer_2018 =df_2018[df_2018$start_borough=="Manhattan" & df_2018$end_borough!="Manhattan", ]
 
-man_outer_2018_plot <- ggplot(data = man_outer_2018, aes(x=hour,y =total_num_trips/1000, color =route))+
+man_outer_2018_plot <- ggplot(data = man_outer_2018, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +
   ggtitle("2018 NYC Citi Bike Trips from Manhattan to outers ", 
           "Based on Citi Bike system data,  6/1/2018-6/30/2018") +
@@ -130,11 +159,11 @@ man_outer_2018_plot <- ggplot(data = man_outer_2018, aes(x=hour,y =total_num_tri
 
 man_outer_2019 =df_2019[df_2019$start_borough=="Manhattan" &df_2019$end_borough!='Manhattan', ]
 
-man_outer_2019_plot <- ggplot(data = man_outer_2019, aes(x=hour,y =total_num_trips/1000, color =route))+
+man_outer_2019_plot <- ggplot(data = man_outer_2019, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +
   ggtitle("2019 NYC Citi Bike Trips from Manhattan to outers ", 
           "Based on Citi Bike system data,  6/1/2019-6/30/2019") +
-  labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips(Thousands)")+
+  labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips")+
   theme_grey(10)+
   theme(plot.title =element_text(face='bold', color ='steelblue2'),
         axis.title.y = element_text(size = 9))
@@ -145,8 +174,8 @@ man_outer_2020 =df_2020[df_2020$start_borough=="Manhattan"&df_2020$end_borough!=
 
 man_outer_2020 <-as.data.frame(man_outer_2020)
 
-man_outer_2020_plot <-  ggplot(data = man_outer_2020, aes(x=hour,y =total_num_trips/1000, color =route))+
-  geom_point()+geom_line() +coord_cartesian(ylim = c(0, 7))+
+man_outer_2020_plot <-  ggplot(data = man_outer_2020, aes(x=hour,y =total_num_trips, color =route))+
+  geom_point()+geom_line() +coord_cartesian(ylim = c(0, 7000))+
   ggtitle("2020 NYC Citi Bike Trips from Manhattan to outers ", 
           "Based on Citi Bike system data,  6/1/2020-6/30/2020") +
   labs(x ="Trip Hours", y =" ")+
@@ -155,6 +184,9 @@ man_outer_2020_plot <-  ggplot(data = man_outer_2020, aes(x=hour,y =total_num_tr
 
 ```
 
+2. Manhattan to Outers
+From the pattern we can see, in the morning few people will take the bikes but in the afternoon, there are average 6K trips each day. People tend to take other transformations for going to queens and Brooklyn and coming back to Manhattan with bikes. 
+One interesting point is the morning bike usage doubled in 2020, the average bike usage around 10AM is 1k in both 2018 and 2019 but it is 2K in 2020. This can be implied that people try to take social distance and avoid taking subway or bus for their commute and choose to ride bikes instead.
 
 ```{r}
 ##Manhattan to outers
@@ -209,7 +241,9 @@ qn_outer_2020_plot <-  ggplot(data = qn_outer_2020, aes(x=hour,y =total_num_trip
 
 ```
 
-
+3. Queens to Outer
+Very few people take Citi bikes in Queens since there are fewer bike stations in Queens. It still worths us to take a look on riders' pattern.
+In the morning rush hours, there are around 700 riders take bikes as their way to Manhattan and 200 riders to Brooklyn for both 2018 and 2019. Things change a little bit in 2020, there are around 1000 riders take bikes to Manhattan, 400 riders to Brooklyn. Rider numbers almost doubled in 2020. It has the similar pattern as people live in Manhattan and go to Queens or Brooklyn in the morning. Due to pandemic and social distance advocate, people in New York city tend to ride more bikes than usual to avoid taking subways or buses in the morning rush hours.
 
 ```{r}
 ###Queens to Outers
@@ -239,7 +273,7 @@ bk_outer_2018_plot <- ggplot(data = bk_outer_2018, aes(x=hour,y =total_num_trips
 bk_outer_2019 =df_2019[df_2019$start_borough=="Brooklyn" &df_2019$end_borough!='Brooklyn', ]
 
 bk_outer_2019_plot <- ggplot(data = bk_outer_2019, aes(x=hour,y =total_num_trips, color =route))+
-  geom_point()+geom_line() +
+  geom_point()+geom_line() +coord_cartesian(ylim = c(0, 6000))+
   ggtitle("2019 NYC Citi Bike Trips from Brooklyn to outers ", 
           "Based on Citi Bike system data,  6/1/2019-6/30/2019") +
  labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips")+
@@ -262,6 +296,9 @@ bk_outer_2020_plot <-  ggplot(data = bk_outer_2020, aes(x=hour,y =total_num_trip
 
 ```
 
+4. Brooklyn to Outers
+Brooklyn has a different story compare with their peers in Manhattan and Queens. In 2018 and 2019, more people take bikes to go to other counties with average 6500 trips in the morning rush hours, it dropped to 3000 trips in 2020. I performed a deeper analysis on Brooklyn residents. Most of those trips between Brooklyn bridge and lower Manhattan, since a lot of financial companies are taking strict work from home policy. It explains why riders reduce so many between Brooklyn and Manhattan but not many changes between Brooklyn and Queens.
+
 ```{r}
 
 ###Brooklyn to Outers
@@ -271,3 +308,5 @@ ggarrange(bk_outer_2018_plot, bk_outer_2019_plot, bk_outer_2020_plot,
           ncol = 1, nrow = 3)
 ```
 
+
+## place a holder for 5.7
