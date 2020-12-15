@@ -12,23 +12,41 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(ggplot2)
 library(dplyr)
+```
+
+Question 1: How does number of trips differ by years from 2018 to 2020? How is it affected by COVID-19? Is there any trend? 
+
+From the time series line graph, we can see that the trends in 2018 and 2019 are quite similar. Both of them started to increase in Feburary, reached a relatively high level from May to October, and started to decrease as winter came. In 2020, due to COVID-19, there was a sharp decrease in April 2020. However, surprisingly, the number of trips began to increase right after April, and followed the same pattern as it was in previous years. Based on COVID-19 safety instructions, people should avoid outdoor activities and interation with people, but it seems that citizens in NYC are not following these instructions, and that is why COVID-19 is still a big problem in NYC, or even in the entire US. 
+
+```{r}
 df_1 <- read.csv("/Users/jiayin/Desktop/monthly_usage.csv")
 head(df_1)
+df_1[,'num_trips'] = df_1[,'num_trips']/1000
+df_1[,'year']<-factor(df_1[,'year'])
+df_1[,'month']<-factor(df_1[,'month'])
 ```
 
 ```{r}
-df_1[,'year']<-factor(df_1[,'year'])
-df_1[,'month']<-factor(df_1[,'month'])
-ggplot(df_1, aes(x=month, y = num_trips, group = year, color = year)) + geom_line() + facet_grid(rows = vars(year)) + ggtitle("Number of Trips by Year") + xlab("Month") + ylab("Trips")
+ggplot(df_1, aes(x=month, y = num_trips, group = year, color = year)) + geom_line() + ggtitle("Number of Trips by Year (in 1000)") + xlab("Month") + ylab("Trips")
 ```
 
+```{r}
+ggplot(df_1, aes(x=month, y = num_trips, group = year, color = year)) + geom_line() + facet_grid(rows = vars(year)) + ggtitle("Number of Trips by Year (in 1000)") + xlab("Month") + ylab("Trips")
+```
+Question 2: Can we extract any pattern for trips during weekdays and weekends? What time in a day are bikes used most frequently?
+
+Here we created bar chart analysis for hourly bike usage by weekdays and weekends. We can see that during weekdays, there are 2 peeks. In the morning, the peek occurs at 8 o'clock, when people are busy getting to their workplace. In the afternoon, the peek shows up at 17 and 18 o'clock, when people just end their work and start to get back home. During weekends, we can see that the number of trips almost follows a normal distribution, where it reaches its peek at 15 o'clock. Such trend occurs probably because most people are using Citi bikes for sightseeing during weekends. Combined with other data (for example, data of user info), we might be able to determine the proportion of people that mainly use Citi bikes for work, and thus modifying the bike deployment or the location of bike stations accordingly. 
 ```{r}
 df_2 = read.csv("/Users/jiayin/Desktop/weekend_weekday_dist.csv")
 df_2
 ```
 
 ```{r}
+df_2[,'total_num_trips'] = df_2[,'total_num_trips']/1000
 df_2[,'is_weekend']<-factor(df_2[,'is_weekend'])
 df_2[,'hour']<-factor(df_2[,'hour'])
-ggplot(df_2, aes(x=hour, y = total_num_trips, group = is_weekend)) + geom_bar(stat="identity", fill = "steelblue1") + facet_grid(rows = vars(is_weekend)) + ggtitle("Number of Trips by Hour") + xlab("Hour") + ylab("Trips")
+```
+
+```{r}
+ggplot(df_2, aes(x=hour, y = total_num_trips, group = is_weekend)) + geom_bar(stat="identity", fill = "steelblue2") + facet_grid(rows = vars(is_weekend)) + ggtitle("Number of Trips by Hour (in 1000)") + xlab("Hour") + ylab("Trips")
 ```
