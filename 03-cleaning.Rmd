@@ -12,6 +12,15 @@ https://assets.citibikenyc.com/rental-agreement.html
 \newline
 
 ```{r}
+library(dplyr)
+library(mi)
+library(ggplot2)
+library(forcats)
+```
+
+
+
+```{r}
 library(tidyverse)
 data_201806 <- read.csv("rendered_data/201806-citibike-tripdata.csv",sep=",")
 ```
