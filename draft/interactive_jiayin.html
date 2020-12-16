@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="https://d3js.org/d3.v6.js"></script>
+        <style type ="text/css">
+        </style>
+    </head>
+    
+    <body>
+    
+    <svg width="1000" height="300" id="svg1"></svg>
+    <svg width="1000" height="300" id="svg2"></svg>
+    
+    <script>
+    
+      var svg1 = d3.select("#svg1")
+      var margin = {top: 20, right: 50, bottom: 30, left: 50}
+      var width =  svg1.attr("width") - margin.left - margin.right
+      var height = svg1.attr("height") - margin.top - margin.bottom
+      var g1 = svg1.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+      var xScale = d3.scaleBand().domain(d3.range(24)).range([0, width]).paddingInner(0.05);
+      var yScale = d3.scaleLinear().domain([0, 4000]).range([height, 0]);
+        
+      var xAxis = d3.axisBottom(xScale);
+      var yAxis = d3.axisLeft(yScale);
+      
+      g1.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
+      g1.append("g").call(yAxis);
+      g1.append("g").call(yAxis);
+      
+      var readfile = function(d){
+        return {
+          is_weekend: d.is_weekend,
+          hour: d.hour,
+          trips: d.total_num_trips/1000 
+        }
+      };
+      
+      d3.csv("https://raw.githubusercontent.com/ds-eda-viz/NYC-Bike-Share/main/rendered_data/weekend_weekday_dist.csv", readfile)
+        .then(function(data){
+          
+          var weekday = data.filter(function(d) {return d.is_weekend == "weekday";});
+          var bars = g1.selectAll(".bar").data(weekday).enter().append("rect").attr("class", "bar")
+          
+          bars.attr("x", function(d) {return xScale(d.hour);})
+          .attr("y", function(d) {return yScale(d.trips);})
+          .attr("width", xScale.bandwidth()*0.95)
+          .attr("height", function(d) {return height - yScale(d.trips)})
+          .attr("fill", "steelblue")
+          .on("mouseover", function(){ d3.select(this).attr("fill", "orange");})
+          .on("mouseout", function(){ d3.select(this).attr("fill", "steelblue");});
+          
+          g1.append("text")
+          .attr("x", "10")
+          .attr("y", "20")
+          .text("Number of Trips during Weekdays");
+          g1.append("text")
+          .attr("x", "10")
+          .attr("y", "40")
+          .text("(in thousands)");
+          
+        });
+        
+      /////////////
+      
+      var svg = d3.select("#svg2")
+      var margin = {top: 20, right: 50, bottom: 30, left: 50}
+      var width =  svg.attr("width") - margin.left - margin.right
+      var height = svg.attr("height") - margin.top - margin.bottom
+      var g2 = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      
+      var xScale = d3.scaleBand().domain(d3.range(24)).range([0, width]);
+      var yScale = d3.scaleLinear().domain([0, 4000]).range([height, 0]);
+        
+      var xAxis = d3.axisBottom(xScale);
+      var yAxis = d3.axisLeft(yScale);
+      
+      g2.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
+      g2.append("g").call(yAxis)
+      
+      d3.csv("https://raw.githubusercontent.com/ds-eda-viz/NYC-Bike-Share/main/rendered_data/weekend_weekday_dist.csv", readfile)
+        .then(function(data){
+          var weekend = data.filter(function(d) {return d.is_weekend == "weekend";})
+          var bars = g2.selectAll(".bar").data(weekend).enter().append("rect").attr("class", "bar")
+          
+          bars.attr("x", function(d) {return xScale(d.hour);})
+          .attr("y", function(d) {return yScale(d.trips);})
+          .attr("width", xScale.bandwidth()*0.95)
+          .attr("height", function(d) {return height - yScale(d.trips)})
+          .attr("fill", "steelblue")
+          .on("mouseover", function(){ d3.select(this).attr("fill", "orange");})
+          .on("mouseout", function(){ d3.select(this).attr("fill", "steelblue");});
+          
+          g2.append("text")
+          .attr("x", "10")
+          .attr("y", "20")
+          .text("Number of Trips during Weekends");
+          g2.append("text")
+          .attr("x", "10")
+          .attr("y", "40")
+          .text("(in thousands)");
+        });
+    
+    </script>
+    
+    </body>
+
+</html>
