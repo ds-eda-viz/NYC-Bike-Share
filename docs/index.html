@@ -24,7 +24,7 @@
 <meta name="author" content="Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134), Jiayin Lin (jl5802)" />
 
 
-<meta name="date" content="2020-12-11" />
+<meta name="date" content="2020-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -73,13 +73,23 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a><ul>
-</ul></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#variable-outliers"><i class="fa fa-check"></i><b>3.1</b> Variable outliers</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a><ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-column-and-row"><i class="fa fa-check"></i><b>4.1</b> Missing values by Column and Row</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-pattern-by-year-and-month"><i class="fa fa-check"></i><b>4.2</b> Missing pattern by Year and Month</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#dealing-with-missing-values"><i class="fa fa-check"></i><b>4.3</b> Dealing with missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#the-membership-analysis-age-gender-annual-memberships-or-subscriber"><i class="fa fa-check"></i><b>5.1</b> The Membership analysis (Age, Gender, Annual memberships or Subscriber)</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#time-series-on-bike-usage-2018--2020"><i class="fa fa-check"></i><b>5.2</b> Time Series on Bike Usage (2018 -2020)</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#weekdayweekend-usage"><i class="fa fa-check"></i><b>5.3</b> Weekday/Weekend Usage</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#temerature-affects-on-the-bike-usage"><i class="fa fa-check"></i><b>5.4</b> Temerature affects on the Bike usage</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#bike-users-route-patternhow-people-use-it-as-the-commute-tool"><i class="fa fa-check"></i><b>5.5</b> Bike Users’ route pattern(How people use it as the commute tool)</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#place-a-holder-for-5.7"><i class="fa fa-check"></i><b>5.6</b> place a holder for 5.7</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -104,7 +114,7 @@
 <div id="header">
 <h1 class="title">NYC-Citibike</h1>
 <p class="author"><em>Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134), Jiayin Lin (jl5802)</em></p>
-<p class="date"><em>2020-12-11</em></p>
+<p class="date"><em>2020-12-16</em></p>
 </div>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
@@ -120,7 +130,6 @@ Citi Bike is a privately owned public bicycle sharing system serving the New Yor
 <p>In 2020, due to the COVID 19 Pandemic, New York City implemented the lock down and social distance policy. Many Companies requires employees to work from home instead of going to office everyday. We want to analyze the pandemic’s influence on New York City residents, specially for 1.6M Manhattan residents who use Citi Bike as part of their commute tools.</p>
 <p>In our project, we will break up by different topics:</p>
 <ol style="list-style-type: decimal">
-<li><p>The daily usage of Citi Bike by years (2018, 2019,2020)</p></li>
 <li><p>The Membership analysis (Age, Gender, Annual memberships or Subscriber)</p></li>
 <li><p>Time Series on Bike Usage (2018 -2020)</p></li>
 <li><p>Weekday/Weekend Usage</p></li>

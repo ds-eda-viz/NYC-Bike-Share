@@ -13,15 +13,15 @@ https://assets.citibikenyc.com/rental-agreement.html
 
 ```{r}
 library(tidyverse)
-data_201806 <- read.csv("data/201806-citibike-tripdata.csv",sep=",")
+data_201806 <- read.csv("rendered_data/201806-citibike-tripdata.csv",sep=",")
 ```
 
 ```{r}
-data_201906 <- read.csv("data/201906-citibike-tripdata.csv",sep=",")
+data_201906 <- read.csv("rendered_data/201906-citibike-tripdata.csv",sep=",")
 ```
 
 ```{r}
-data_202006 <- read.csv("data/202006-citibike-tripdata.csv",sep=",")
+data_202006 <- read.csv("rendered_data/202006-citibike-tripdata.csv",sep=",")
 ```
 
 ```{r}
