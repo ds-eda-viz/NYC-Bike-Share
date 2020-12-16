@@ -19,19 +19,18 @@ In 2020, due to the COVID 19 Pandemic, New York City implemented the lock down a
 
 In our project, we will break up by different topics:
 
-1. The daily usage of Citi Bike by years (2018, 2019,2020)
 
-2. The Membership analysis (Age, Gender, Annual memberships or Subscriber)
+1. The Membership analysis (Age, Gender, Annual memberships or Subscriber)
 
-3. Time Series on Bike Usage (2018 -2020)
+2. Time Series on Bike Usage (2018 -2020)
 
-4. Weekday/Weekend Usage
+3. Weekday/Weekend Usage
 
-5. Weather and Temperature affects on the Bike usage
+4. Weather and Temperature affects on the Bike usage
 
-6. Bike users' routes pattern (How people use it as the commute tool)
+5. Bike users' routes pattern (How people use it as the commute tool)
 
-7. Top 5 most popular and the lest popular trips
+6. Top 5 most popular and the lest popular trips
 
 
 
