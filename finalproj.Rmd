@@ -1,3 +1,34 @@
+--- 
+title: "NYC-Citibike"
+author: "Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134), Jiayin Lin (jl5802)"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+
+# Introduction
+
+Placeholder
+
+
+
+<!--chapter:end:index.Rmd-->
+
+
+# Data sources
+
+Placeholder
+
+
+
+<!--chapter:end:02-data.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
 # Data transformation
 
 **Part 1 Basic exploration of variables **  
@@ -114,4 +145,59 @@ After checking data_201806,we did same analysis for data_201906, data_202006 as 
 
 [Since each file contains more than Million rows, it's very slow to perform data transformation in R. We used Mysql server to process our data, all the SQL code have been used to generate datasets are located here:] https://github.com/xguo7013/NYC-Bike-Share/tree/main/sql
 
+
+
+<!--chapter:end:03-cleaning.Rmd-->
+
+
+# Missing values
+
+Placeholder
+
+
+## Missing values by Column and Row
+## Missing pattern by Year and Month
+## Dealing with missing values
+
+<!--chapter:end:04-missing.Rmd-->
+
+
+# Results
+
+Placeholder
+
+
+## The Membership analysis (Age, Gender, Annual memberships or Subscriber)
+## Time Series on Bike Usage (2018 -2020)
+## Weekday/Weekend Usage
+## Temerature affects on the Bike usage  
+## Bike Users' route pattern(How people use it as the commute tool)
+## place a holder for 5.7
+
+<!--chapter:end:05-results.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Interactive component
+
+
+
+<!--chapter:end:06-interactive.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Conclusion
+
+
+<!--chapter:end:07-conclusion.Rmd-->
 
