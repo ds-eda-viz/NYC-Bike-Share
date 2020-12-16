@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Data transformation | NYC-Citibike</title>
+  <meta name="description" content="Chapter 3 Data transformation | NYC-Citibike" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Data transformation | NYC-Citibike" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Data transformation | NYC-Citibike" />
+  
+  
+  
+
+<meta name="author" content="Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134), Jiayin Lin (jl5802)" />
+
+
+<meta name="date" content="2020-12-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-sources.html"/>
+<link rel="next" href="missing-values.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">NYC-citibike</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#variable-outliers"><i class="fa fa-check"></i><b>3.1</b> Variable outliers</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a><ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-column-and-row"><i class="fa fa-check"></i><b>4.1</b> Missing values by Column and Row</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-pattern-by-year-and-month"><i class="fa fa-check"></i><b>4.2</b> Missing pattern by Year and Month</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#dealing-with-missing-values"><i class="fa fa-check"></i><b>4.3</b> Dealing with missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#the-membership-analysis-age-gender-annual-memberships-or-subscriber"><i class="fa fa-check"></i><b>5.1</b> The Membership analysis (Age, Gender, Annual memberships or Subscriber)</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#time-series-on-bike-usage-2018--2020"><i class="fa fa-check"></i><b>5.2</b> Time Series on Bike Usage (2018 -2020)</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#weekdayweekend-usage"><i class="fa fa-check"></i><b>5.3</b> Weekday/Weekend Usage</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#temerature-affects-on-the-bike-usage"><i class="fa fa-check"></i><b>5.4</b> Temerature affects on the Bike usage</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#bike-users-route-patternhow-people-use-it-as-the-commute-tool"><i class="fa fa-check"></i><b>5.5</b> Bike Users’ route pattern(How people use it as the commute tool)</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#place-a-holder-for-5.7"><i class="fa fa-check"></i><b>5.6</b> place a holder for 5.7</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NYC-Citibike</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-transformation" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<p><strong>Part 1 Basic exploration of variables </strong><br />
+– continuous<br />
+– categorical<br />
+Histogram<br />
+Boxplot<br />
+Bar chart<br />
+….
+You may not ride a Bicycle if You are under 16 years of age. A minor who is 16 years of age or older may only use the Services if the minor’s subscription is purchased by, and the minor is under the responsibility of, the minor’s parent or legal guardian.<br />
+<a href="https://assets.citibikenyc.com/rental-agreement.html" class="uri">https://assets.citibikenyc.com/rental-agreement.html</a><br />
+</p>
+<pre><code>## &#39;data.frame&#39;:    1953103 obs. of  15 variables:
+##  $ tripduration           : int  569 480 692 664 818 753 687 619 819 335 ...
+##  $ starttime              : chr  &quot;2018-06-01 01:57:20.5140&quot; &quot;2018-06-01 02:02:42.3980&quot; &quot;2018-06-01 02:04:23.6240&quot; &quot;2018-06-01 03:00:55.4610&quot; ...
+##  $ stoptime               : chr  &quot;2018-06-01 02:06:50.0880&quot; &quot;2018-06-01 02:10:43.3540&quot; &quot;2018-06-01 02:15:55.7470&quot; &quot;2018-06-01 03:11:59.9060&quot; ...
+##  $ start.station.id       : int  72 72 72 72 72 72 72 72 72 72 ...
+##  $ start.station.name     : chr  &quot;W 52 St &amp; 11 Ave&quot; &quot;W 52 St &amp; 11 Ave&quot; &quot;W 52 St &amp; 11 Ave&quot; &quot;W 52 St &amp; 11 Ave&quot; ...
+##  $ start.station.latitude : num  40.8 40.8 40.8 40.8 40.8 ...
+##  $ start.station.longitude: num  -74 -74 -74 -74 -74 ...
+##  $ end.station.id         : int  173 477 457 379 459 446 212 458 212 514 ...
+##  $ end.station.name       : chr  &quot;Broadway &amp; W 49 St&quot; &quot;W 41 St &amp; 8 Ave&quot; &quot;Broadway &amp; W 58 St&quot; &quot;W 31 St &amp; 7 Ave&quot; ...
+##  $ end.station.latitude   : num  40.8 40.8 40.8 40.7 40.7 ...
+##  $ end.station.longitude  : num  -74 -74 -74 -74 -74 ...
+##  $ bikeid                 : int  21481 19123 26983 26742 26386 27073 14612 16415 31551 26058 ...
+##  $ usertype               : chr  &quot;Subscriber&quot; &quot;Subscriber&quot; &quot;Subscriber&quot; &quot;Subscriber&quot; ...
+##  $ birth.year             : int  1999 1988 1986 1973 1984 1981 1968 1990 1981 1988 ...
+##  $ gender                 : int  1 1 1 1 1 1 1 2 1 2 ...</code></pre>
+<pre><code>## &#39;data.frame&#39;:    1953103 obs. of  17 variables:
+##  $ tripduration           : int  569 480 692 664 818 753 687 619 819 335 ...
+##  $ starttime              : chr  &quot;2018-06-01 01:57:20.5140&quot; &quot;2018-06-01 02:02:42.3980&quot; &quot;2018-06-01 02:04:23.6240&quot; &quot;2018-06-01 03:00:55.4610&quot; ...
+##  $ stoptime               : chr  &quot;2018-06-01 02:06:50.0880&quot; &quot;2018-06-01 02:10:43.3540&quot; &quot;2018-06-01 02:15:55.7470&quot; &quot;2018-06-01 03:11:59.9060&quot; ...
+##  $ start.station.id       : int  72 72 72 72 72 72 72 72 72 72 ...
+##  $ start.station.name     : chr  &quot;W 52 St &amp; 11 Ave&quot; &quot;W 52 St &amp; 11 Ave&quot; &quot;W 52 St &amp; 11 Ave&quot; &quot;W 52 St &amp; 11 Ave&quot; ...
+##  $ start.station.latitude : num  40.8 40.8 40.8 40.8 40.8 ...
+##  $ start.station.longitude: num  -74 -74 -74 -74 -74 ...
+##  $ end.station.id         : int  173 477 457 379 459 446 212 458 212 514 ...
+##  $ end.station.name       : chr  &quot;Broadway &amp; W 49 St&quot; &quot;W 41 St &amp; 8 Ave&quot; &quot;Broadway &amp; W 58 St&quot; &quot;W 31 St &amp; 7 Ave&quot; ...
+##  $ end.station.latitude   : num  40.8 40.8 40.8 40.7 40.7 ...
+##  $ end.station.longitude  : num  -74 -74 -74 -74 -74 ...
+##  $ bikeid                 : int  21481 19123 26983 26742 26386 27073 14612 16415 31551 26058 ...
+##  $ usertype               : chr  &quot;Subscriber&quot; &quot;Subscriber&quot; &quot;Subscriber&quot; &quot;Subscriber&quot; ...
+##  $ birth.year             : int  1999 1988 1986 1973 1984 1981 1968 1990 1981 1988 ...
+##  $ gender                 : int  1 1 1 1 1 1 1 2 1 2 ...
+##  $ age                    : num  21 32 34 47 36 39 52 30 39 32 ...
+##  $ year_month             : chr  &quot;201806&quot; &quot;201806&quot; &quot;201806&quot; &quot;201806&quot; ...</code></pre>
+<div id="variable-outliers" class="section level2">
+<h2><span class="header-section-number">3.1</span> Variable outliers</h2>
+<p>We want to check tripduration and age<br />
+
+Identifying outliers using plots and fitting models is relatively easy compared to what to do after identifying the outliers. Outliers can be rare cases, unusual values, or genuine errors. Genuine errors must be corrected if possible or else they must be removed.<br />
+</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre><code>## &#39;data.frame&#39;:    1953103 obs. of  18 variables:
+##  $ tripduration           : int  569 480 692 664 818 753 687 619 819 335 ...
+##  $ starttime              : chr  &quot;2018-06-01 01:57:20.5140&quot; &quot;2018-06-01 02:02:42.3980&quot; &quot;2018-06-01 02:04:23.6240&quot; &quot;2018-06-01 03:00:55.4610&quot; ...
+##  $ stoptime               : chr  &quot;2018-06-01 02:06:50.0880&quot; &quot;2018-06-01 02:10:43.3540&quot; &quot;2018-06-01 02:15:55.7470&quot; &quot;2018-06-01 03:11:59.9060&quot; ...
+##  $ start.station.id       : int  72 72 72 72 72 72 72 72 72 72 ...
+##  $ start.station.name     : chr  &quot;W 52 St &amp; 11 Ave&quot; &quot;W 52 St &amp; 11 Ave&quot; &quot;W 52 St &amp; 11 Ave&quot; &quot;W 52 St &amp; 11 Ave&quot; ...
+##  $ start.station.latitude : num  40.8 40.8 40.8 40.8 40.8 ...
+##  $ start.station.longitude: num  -74 -74 -74 -74 -74 ...
+##  $ end.station.id         : int  173 477 457 379 459 446 212 458 212 514 ...
+##  $ end.station.name       : chr  &quot;Broadway &amp; W 49 St&quot; &quot;W 41 St &amp; 8 Ave&quot; &quot;Broadway &amp; W 58 St&quot; &quot;W 31 St &amp; 7 Ave&quot; ...
+##  $ end.station.latitude   : num  40.8 40.8 40.8 40.7 40.7 ...
+##  $ end.station.longitude  : num  -74 -74 -74 -74 -74 ...
+##  $ bikeid                 : int  21481 19123 26983 26742 26386 27073 14612 16415 31551 26058 ...
+##  $ usertype               : chr  &quot;Subscriber&quot; &quot;Subscriber&quot; &quot;Subscriber&quot; &quot;Subscriber&quot; ...
+##  $ birth.year             : int  1999 1988 1986 1973 1984 1981 1968 1990 1981 1988 ...
+##  $ gender                 : int  1 1 1 1 1 1 1 2 1 2 ...
+##  $ age                    : num  21 32 34 47 36 39 52 30 39 32 ...
+##  $ year_month             : chr  &quot;201806&quot; &quot;201806&quot; &quot;201806&quot; &quot;201806&quot; ...
+##  $ tripduration.bin       : chr  &quot;less than 1h&quot; &quot;less than 1h&quot; &quot;less than 1h&quot; &quot;less than 1h&quot; ...</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+
+<p>After checking data_201806,we did same analysis for data_201906, data_202006 as well</p>
+<p><strong>Part 2 Data Transformation </strong></p>
+<p>[Since each file contains more than Million rows, it’s very slow to perform data transformation in R. We used Mysql server to process our data, all the SQL code have been used to generate datasets are located here:] <a href="https://github.com/xguo7013/NYC-Bike-Share/tree/main/sql" class="uri">https://github.com/xguo7013/NYC-Bike-Share/tree/main/sql</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-sources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="missing-values.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ds-eda-viz/NYC-Bike-Share/edit/main/03-cleaning.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/ds-eda-viz/NYC-Bike-Share/blob/main/03-cleaning.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
