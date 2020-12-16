@@ -24,7 +24,7 @@
 <meta name="author" content="Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134), Jiayin Lin (jl5802)" />
 
 
-<meta name="date" content="2020-12-05" />
+<meta name="date" content="2020-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="data-transformation.html"/>
-<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +50,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
@@ -74,12 +74,22 @@
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
-<ul>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#variable-outliers"><i class="fa fa-check"></i><b>3.1</b> Variable outliers</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a><ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-column-and-row"><i class="fa fa-check"></i><b>4.1</b> Missing values by Column and Row</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-pattern-by-year-and-month"><i class="fa fa-check"></i><b>4.2</b> Missing pattern by Year and Month</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#dealing-with-missing-values"><i class="fa fa-check"></i><b>4.3</b> Dealing with missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#the-membership-analysis-age-gender-annual-memberships-or-subscriber"><i class="fa fa-check"></i><b>5.1</b> The Membership analysis (Age, Gender, Annual memberships or Subscriber)</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#time-series-on-bike-usage-2018--2020"><i class="fa fa-check"></i><b>5.2</b> Time Series on Bike Usage (2018 -2020)</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#weekdayweekend-usage"><i class="fa fa-check"></i><b>5.3</b> Weekday/Weekend Usage</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#temerature-affects-on-the-bike-usage"><i class="fa fa-check"></i><b>5.4</b> Temerature affects on the Bike usage</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#bike-users-route-patternhow-people-use-it-as-the-commute-tool"><i class="fa fa-check"></i><b>5.5</b> Bike Users’ route pattern(How people use it as the commute tool)</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#place-a-holder-for-5.7"><i class="fa fa-check"></i><b>5.6</b> place a holder for 5.7</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -101,58 +111,30 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-sources" class="section level1" number="2">
+<div id="data-sources" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
-<p>library(tidyverse)
-library(rvest)
-library(robotstxt)</p>
-<p>paths_allowed(“<a href="https://s3.amazonaws.com/tripdata/index.html" class="uri">https://s3.amazonaws.com/tripdata/index.html</a>”)</p>
-<p>paths_allowed(“<a href="https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip</a>”)</p>
-<p>##download.file(‘<a href="https://s3.amazonaws.com/tripdata/201502-citibike-tripdata.zip" class="uri">https://s3.amazonaws.com/tripdata/201502-citibike-tripdata.zip</a>’,
-## destfile=“C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/final_project_5702/201502.zip”)</p>
-<p>##file url
-url_list = list(
-“<a href="https://s3.amazonaws.com/tripdata/201801-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201801-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201802-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201802-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201803-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201803-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201804-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201804-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201805-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201805-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201806-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201806-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201807-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201807-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201808-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201808-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201809-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201809-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201810-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201810-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201811-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201812-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201812-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201901-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201901-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201902-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201902-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201903-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201903-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201904-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201904-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201905-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201905-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201906-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201906-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201907-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201907-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201908-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201908-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201909-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201909-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201910-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201910-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201911-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201911-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/201912-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/201912-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/202001-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202001-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/202002-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202002-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/202003-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202003-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/202004-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202004-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/202005-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202005-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/202006-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202006-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/202007-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202007-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/202008-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202008-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/202009-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202009-citibike-tripdata.csv.zip</a>”,
-“<a href="https://s3.amazonaws.com/tripdata/202010-citibike-tripdata.csv.zip" class="uri">https://s3.amazonaws.com/tripdata/202010-citibike-tripdata.csv.zip</a>”
-)</p>
-<p>url_list =unlist(url_list)</p>
-<p>l=length(url_list)</p>
-<p>for (i in 1 : l) {
-download.file(url_list[i],
-destfile=paste(“C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/final_project_5702/”,substr(url_list[i],35,40),“.zip”))
-}</p>
+<p>The data source is taken from the official side of Citibike website.
+Each file contains monthly trip data, which we take from 2018-01 to 2020-10, total 34 months.</p>
+<p>[data source link:] <a href="https://s3.amazonaws.com/tripdata/index.html" class="uri">https://s3.amazonaws.com/tripdata/index.html</a></p>
+<p>There are 15 features in the dataset.</p>
+<ol style="list-style-type: decimal">
+<li><p>trip duration in seconds.</p></li>
+<li><p>start time</p></li>
+<li><p>end time</p></li>
+<li><p>start station id</p></li>
+<li><p>start station name</p></li>
+<li><p>start station latitude</p></li>
+<li><p>start station longitude</p></li>
+<li><p>end station id</p></li>
+<li><p>end station name</p></li>
+<li><p>end station latitude</p></li>
+<li><p>end station longitude</p></li>
+<li><p>bike id</p></li>
+<li><p>user type</p></li>
+<li><p>birth year</p></li>
+<li><p>gender</p></li>
+</ol>
+<p>[You can use the R code to download our files:] <a href="https://github.com/ds-eda-viz/NYC-Bike-Share/blob/main/sql/download_raw_data.R" class="uri">https://github.com/ds-eda-viz/NYC-Bike-Share/blob/main/sql/download_raw_data.R</a></p>
 
 </div>
             </section>

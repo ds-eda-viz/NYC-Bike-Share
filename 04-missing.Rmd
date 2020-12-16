@@ -1,6 +1,8 @@
 # Missing values
 
 
+
+
 For simplicity of the analysis, we extracted abnormal data (missing data, outliers) using SQL and gathered the result into 2 csv files, abnormal_data.csv and abnormal_location.csv. To explore the missing value patterns, we only need abnormal_data.csv.
 
 ```{r}

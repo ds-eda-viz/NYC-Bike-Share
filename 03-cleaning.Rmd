@@ -112,5 +112,6 @@ After checking data_201806,we did same analysis for data_201906, data_202006 as 
 
 **Part 2 Data Transformation **  
 
+[Since each file contains more than Million rows, it's very slow to perform data transformation in R. We used Mysql server to process our data, all the SQL code have been used to generate datasets are located here:] https://github.com/xguo7013/NYC-Bike-Share/tree/main/sql
 
 
