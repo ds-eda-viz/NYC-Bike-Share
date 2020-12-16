@@ -1,8 +1,234 @@
 # Results
-## place a holder for 5.1
-## place a holder for 5.2
-## place a holder for 5.3
-## place a holder for 5.4
+
+
+
+## The Membership analysis (Age, Gender, Annual memberships or Subscriber)
+
+
+1.Color Palette  
+First, we carefully pick our color palette for plots in this project, to make it consistent with company brand. The base colors for Citibike is blue and red.  
+Color patette chosen are steelblue series and indianred series.  
+
+```{r}
+Palette=c('steelblue2','indianred1') 
+
+```
+
+
+2.Age/gender vs bike usage 
+We care about how gender and age affect the bike usage, what's the difference betwwen each group and what kind of patterns there. Also, we want to see if there are any changes among years. Two facet line charts were created based on total number of trips and average duration of trips.  
+Three features were considered, age, gender and year  
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+df1 <- read.csv("rendered_data/age_gender_duration.csv")
+df1$gender <- as.factor(df1$gender)
+df1<- df1 %>% mutate(gender= fct_recode(gender,"unknown"="0","male"="1","female"="2"))%>%
+      filter(gender!='unknown')
+
+```
+
+
+```{r,fig.width=10, fig.height=4}
+df1 %>%
+  ggplot(aes(x=age, y=trip_count/1000,group=gender))+
+  geom_line(aes(color=gender))+
+  geom_point(aes(color=gender))+
+  scale_x_continuous(breaks=seq(0,100,10))+
+  scale_color_manual(values=Palette)+
+  ylab("trip_count (/1000)")+
+  facet_wrap(~year)+
+  ggtitle("NYC Citibike Total Number of Trips by Age and Gender" )
+  
+```
+
+```{r,fig.width=10, fig.height=4}
+df1 %>%
+  ggplot(aes(x=age, y=trip_duration_avg,group=gender))+
+  geom_line(aes(color=gender))+
+  geom_point(aes(color=gender))+
+  scale_x_continuous(breaks=seq(0,100,10))+
+  scale_color_manual(values=Palette)+
+  facet_wrap(~year)+
+  ylab("trip_duration_avg(minites)")+
+  ggtitle("NYC Citibike Average Trip Duration by Age and Gender" )
+```
+
+Note: For 2020, data was collected from January to October  
+
+We can clearly see some patterns from above two plots.  
+1) Males made more trips than females amnong almost all age levels. Without checking the accurate number, it looks like males have more than twice of the total trips made by females  
+2) Total trips increases before age 30, but decreases after that, both males and females have total trip peaks around age 30. Young people tend to use bikes more.  
+3) In terms of average duration,females tend to have longer trip duration then males. It makes sense as in general, makes ride faster then females.  
+4) An interesting thing is that below age 65, the average duration is very stable for both male and female, between 10 and 20 minutes, but after age 65, it varies much. We can think about people may use bike a lot for daily commuting purpose on Mahattan. But after retirement, people bike for different reasons, maybe for exercise or for short trips. 
+5) Another thing is that the average duration in 2020 seems longer then previous years. Probably people who need to go outside reduce the use of public transportation, and ride bikes more to get to destination
+6) Finally, we think in general there is slight but not that significant pattern changes in year 2020 based on age and gender.  
+
+
+
+3.Membership types vs bike usage
+We want to look into more details to check if user behavior differs among age, gender and year. There are two Membership types, pass user and subscriber. We want to see which one peple use more. Two plots made here, one is stacked bar chart to show the total numbers, another one is mosaic plot to understand the association among variables, mainly gender and age in diferent years. 
+
+Ages were binned into categories for analysis.
+
+
+```{r}
+df2 <- read.csv('rendered_data/usertype_gender_age.csv')
+df3<-df2
+df3$gender <- as.factor(df3$gender)
+df3<- df3 %>% mutate(gender= fct_recode(gender,"unknown"="0","male"="1","female"="2"))
+
+df4<-df2 %>% filter(gender!=0)
+df4$gender <- as.factor(df4$gender)
+df4<- df4 %>% mutate(gender= fct_recode(gender,"male"="1","female"="2"))
+```
+
+
+
+
+```{r,fig.width=9, fig.height=4}
+Palette2=c('indianred1','steelblue2') #indianred1,lightcoral,salmon2,coral1
+df3 %>%
+  ggplot(aes(x=age_bin, y=total_trip_count/1000, fill=usertype))+
+  geom_col()+    #geom_col(position = "dodge")
+  scale_fill_manual(values=Palette2)+
+  facet_wrap(~year)+
+  ggtitle("NYC Citibike Membership type by Year, Age")
+
+```
+
+Note: 
+1) Customer = 24-hour pass or 3-day pass user; Subscriber = Annual Member  
+2) For 2020, data was collected from January to October  
+
+
+
+We have some findings below.  
+1) We found in both bar chart, for different age bins, age 45-54 tend to have the highest percentage of customer type, followed by age below 35 which have relatively higher percentage of customer type. While age 35-44 users and age higher then 55 users tend to have more subscribers.
+2) We have some doubts for age 45-54, and curious why this age bin have the highest customer type. This question may be answered by mosaic plot.
+3) Another thing we can tell from the plots is that due to covid-19, the percentage of customer increased, people work from home and stay at home may cancel the annual membership. But in general, the usage doesn't drop largely.  
+
+
+```{r}
+library(vcd)
+
+df_2019<-df3%>%filter(year==2019)
+
+Palette3= c('grey','steelblue1','steelblue')
+mosaic(xtabs(total_trip_count~ gender+age_bin+usertype , df_2019),
+             direction = c("h", "v", "h"),
+             gp = gpar(fill = Palette3),
+             main = "Membership type by Gender, Age in 2019")
+```
+An interesting thing is that for gender 'unknown', age 45-54 occupies the lagest portion and membership type 'customer' is the main type in this bin, which is very different from other catergories. We cannot find a good reason for this abnomality, and guess when people create new profile, they don't want to input the true information and keep the default settings, especially for membership type 'customer', who care more about to use bike as soon as possible.  
+For this strange pattern in unknown category, we will focus more on male and female categories, and filter the data for gender unknown for further analysis.
+
+
+
+```{r,fig.width=9, fig.height=4}
+library(vcd)
+
+df_2019<-df4%>%filter(year==2019)
+df_2020<-df4%>%filter(year==2020)
+
+Palette3= c('steelblue1','steelblue')
+mosaic(xtabs(total_trip_count~ gender+age_bin+usertype , df_2019),
+             direction = c("h", "v", "h"),
+             gp = gpar(fill = Palette3),
+       main = "Membership Types by Gender, Age in 2019")
+
+mosaic(xtabs(total_trip_count~ gender+age_bin+usertype , df_2020),
+             direction = c("h", "v", "h"),
+             gp = gpar(fill = Palette3),
+       main = "Membership Types by Gender, Age in 2020")
+
+
+```
+Note: 
+1) The plot should show the fill in color for the last cut - usertype, but it's not working here.  
+2) In order to show more clear plot, we made the first cut horizontally  
+
+
+Mosaic plot mainly show the proportion and association for gender, age and usertypes. The patterns are now more clear then stacked bar chart.  
+1) For both male and female, yonger ages tend to have more customer type, while elder people tend to have more subscribers. We guess elder people may have more fixed pace of life and commute between home and workplace daily; and for age higher than 55, those people may bicycle for exercise and healthier life style.  
+2) We don't see much difference for usertypes in terms of age and gender.  
+
+2) Same thing we can tell from mosaic plot, due to covid-19, the percentage of customer increased  
+
+
+
+
+## Time Series on Bike Usage (2018 -2020)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+```
+
+Question 1: How does number of trips differ by years from 2018 to 2020? How is it affected by COVID-19? Is there any trend? 
+
+From the time series line graph, we can see that the trends in 2018 and 2019 are quite similar. Both of them started to increase in Feburary, reached a relatively high level from May to October, and started to decrease as winter came. In 2020, due to COVID-19, there was a sharp decrease in April 2020. However, surprisingly, the number of trips began to increase right after April, and followed the same pattern as it was in previous years. Based on COVID-19 safety instructions, people should avoid outdoor activities and interaction with people, but it seems that citizens in NYC are not following these instructions, and that is why COVID-19 is still a big problem in NYC, or even in the entire US. 
+
+```{r}
+df_1 <- read.csv("rendered_data/monthly_usage.csv")
+
+df_1[,'num_trips'] = df_1[,'num_trips']/1000
+df_1[,'year']<-factor(df_1[,'year'])
+df_1[,'month']<-factor(df_1[,'month'])
+
+```
+
+```{r,fig.width=9, fig.height=4}
+ggplot(df_1, aes(x=month, y = num_trips, group = year, color = year)) + 
+  geom_line(size =1) + 
+  ggtitle("Number of Trips with Different years (In Thousands)") + 
+  xlab("Month") + 
+  ylab("Number of Trips")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
+```
+
+```{r,fig.width=9, fig.height=4}
+ggplot(df_1, aes(x=month, y = num_trips, group = year, color = year)) + 
+  geom_line(size =1) + 
+  facet_grid(rows = vars(year)) + 
+  ggtitle("Number of Trips with Different years (In Thousands)") + 
+  xlab("Month") + ylab("Trips")+
+  ylab("Number of Trips")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
+```
+
+
+
+## Weekday/Weekend Usage
+
+Can we extract any pattern for trips during weekdays and weekends? What time in a day are bikes used most frequently?
+
+Here we created bar chart analysis for hourly bike usage by weekdays and weekends. We can see that during weekdays, there are 2 peeks. In the morning, the peek occurs at 8 o'clock, when people are busy getting to their workplace. In the afternoon, the peek shows up at 17 and 18 o'clock, when people just end their work and start to get back home. During weekends, we can see that the number of trips almost follows a normal distribution, where it reaches its peek at 15 o'clock. Such trend occurs probably because most people are using Citi bikes for sightseeing during weekends. Combined with other data (for example, data of user info), we might be able to determine the proportion of people that mainly use Citi bikes for work, and thus modifying the bike deployment or the location of bike stations accordingly. 
+```{r}
+df_2 = read.csv("rendered_data/weekend_weekday_dist.csv")
+
+```
+
+```{r}
+df_2[,'total_num_trips'] = df_2[,'total_num_trips']/1000
+df_2[,'is_weekend']<-factor(df_2[,'is_weekend'])
+df_2[,'hour']<-factor(df_2[,'hour'])
+```
+
+```{r,fig.width=9, fig.height=4}
+ggplot(df_2, aes(x=hour, y = total_num_trips, group = is_weekend)) + geom_bar(stat="identity", fill = "steelblue2") + facet_grid(rows = vars(is_weekend)) + ggtitle("Number of Trips by Hour (in 1000)") + xlab("Hour") + ylab("Trips")
+```
+
+
 
 
 ## Temerature affects on the Bike usage  
@@ -32,6 +258,8 @@ ggplot(data =df_2018, aes(x=month, y=num_trips/1000000))+
   theme_grey(10)+
   theme(plot.title =element_text(face='bold', color ='steelblue2'))
 ```
+
+
 
 
 ## Bike Users' route pattern(How people use it as the commute tool)
@@ -88,10 +316,10 @@ man_2018_plot <- ggplot(data = man_2018,
                         color =route))+
   geom_point()+geom_line() +
   ggtitle("2018 NYC Citi Bike Trips in Manhattan ", 
-          "Based on Citi Bike system data,  6/1/2018-6/30/2018") +
+          "Based on Citi Bike system data, 2018-06-01 to 2018-06-30") +
   labs(x ="Trip Hours", y ="")+
   theme_grey(10)+
-  theme(plot.title =element_text(face='bold', color ='steelblue1'))
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
 
 ###2019
 man_2019 =df_2019[df_2019$start_borough=="Manhattan", ]
@@ -102,7 +330,7 @@ man_2019_plot <- ggplot(data = man_2019,
                             color =route))+
   geom_point()+geom_line() +
   ggtitle("2019 NYC Citi Bike Trips in Manhattan ", 
-          "Based on Citi Bike system data,  6/1/2019-6/30/2019") +
+          "Based on Citi Bike system data,  2019-06-01 to 2019-06-30") +
   labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips(Thousands)")+
   coord_cartesian(ylim = c(0, 150))+
   theme_grey(10)+
@@ -122,7 +350,7 @@ man_2020_plot <-  ggplot(data = man_2020,
                              color =route))+
   geom_point()+geom_line() +coord_cartesian(ylim = c(0, 150))+
   ggtitle("2020 NYC Citi Bike Trips in Manhattan ", 
-          "Based on Citi Bike system data,  6/1/2020-6/30/2020") +
+          "Based on Citi Bike system data,  2020-06-01 to 2020-06-30") +
   labs(x ="Trip Hours", y ="")+
   theme_grey(9)+
   theme(plot.title =element_text(face='bold', color ='steelblue2'))
@@ -130,7 +358,7 @@ man_2020_plot <-  ggplot(data = man_2020,
 
 ```
 
-```{r}
+```{r,fig.width=9, fig.height=4}
 
 
 ggarrange(man_2018_plot, man_2019_plot, man_2020_plot, 
@@ -150,7 +378,7 @@ man_outer_2018 =df_2018[df_2018$start_borough=="Manhattan" & df_2018$end_borough
 man_outer_2018_plot <- ggplot(data = man_outer_2018, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +
   ggtitle("2018 NYC Citi Bike Trips from Manhattan to outers ", 
-          "Based on Citi Bike system data,  6/1/2018-6/30/2018") +
+          "Based on Citi Bike system data,  2018-06-01 to 2018-06-30") +
   labs(x ="Trip Hours", y =" ")+
   theme_grey(10)+
   theme(plot.title =element_text(face='bold', color ='steelblue2'))
@@ -162,7 +390,7 @@ man_outer_2019 =df_2019[df_2019$start_borough=="Manhattan" &df_2019$end_borough!
 man_outer_2019_plot <- ggplot(data = man_outer_2019, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +
   ggtitle("2019 NYC Citi Bike Trips from Manhattan to outers ", 
-          "Based on Citi Bike system data,  6/1/2019-6/30/2019") +
+          "Based on Citi Bike system data,  2019-06-01 to 2019-06-30") +
   labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips")+
   theme_grey(10)+
   theme(plot.title =element_text(face='bold', color ='steelblue2'),
@@ -177,7 +405,7 @@ man_outer_2020 <-as.data.frame(man_outer_2020)
 man_outer_2020_plot <-  ggplot(data = man_outer_2020, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +coord_cartesian(ylim = c(0, 7000))+
   ggtitle("2020 NYC Citi Bike Trips from Manhattan to outers ", 
-          "Based on Citi Bike system data,  6/1/2020-6/30/2020") +
+          "Based on Citi Bike system data,  2020-06-01 to 2020-06-30") +
   labs(x ="Trip Hours", y =" ")+
   theme_grey(10)+
   theme(plot.title =element_text(face='bold', color ='steelblue2'))
@@ -188,7 +416,7 @@ man_outer_2020_plot <-  ggplot(data = man_outer_2020, aes(x=hour,y =total_num_tr
 From the pattern we can see, in the morning few people will take the bikes but in the afternoon, there are average 6K trips each day. People tend to take other transformations for going to queens and Brooklyn and coming back to Manhattan with bikes. 
 One interesting point is the morning bike usage doubled in 2020, the average bike usage around 10AM is 1k in both 2018 and 2019 but it is 2K in 2020. This can be implied that people try to take social distance and avoid taking subway or bus for their commute and choose to ride bikes instead.
 
-```{r}
+```{r,fig.width=9, fig.height=4}
 ##Manhattan to outers
 ggarrange(man_outer_2018_plot, man_outer_2019_plot, man_outer_2020_plot, 
           label.y = 1,
@@ -208,10 +436,10 @@ qn_outer_2018 =df_2018[df_2018$start_borough=="Queens" & df_2018$end_borough!="Q
 qn_outer_2018_plot <- ggplot(data = qn_outer_2018, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +coord_cartesian(ylim = c(0, 1500))+
   ggtitle("2018 NYC Citi Bike Trips from Queens to outers ", 
-          "Based on Citi Bike system data,  6/1/2018-6/30/2018") +
+          "Based on Citi Bike system data,  2018-06-01 to 2018-06-30") +
   labs(x ="Trip Hours", y =" ")+
   theme_grey(10)+
-  theme(plot.title =element_text(face='bold', color ='steelblue1'))
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
 
 ###2019
 
@@ -220,7 +448,7 @@ qn_outer_2019 =df_2019[df_2019$start_borough=="Queens" &df_2019$end_borough!='Qu
 qn_outer_2019_plot <- ggplot(data = qn_outer_2019, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +coord_cartesian(ylim = c(0, 1500))+
   ggtitle("2019 NYC Citi Bike Trips from Queens to outers ", 
-          "Based on Citi Bike system data,  6/1/2019-6/30/2019") +
+          "Based on Citi Bike system data,  2019-06-01 to 2019-06-30") +
   labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips")+
   theme_grey(10)+
   theme(plot.title =element_text(face='bold', color ='steelblue2'),
@@ -234,10 +462,10 @@ qn_outer_2020 <- as.data.frame(qn_outer_2020)
 qn_outer_2020_plot <-  ggplot(data = qn_outer_2020, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +coord_cartesian(ylim = c(0, 1500))+
   ggtitle("2020 NYC Citi Bike Trips from Queens to outers ", 
-          "Based on Citi Bike system data,  6/1/2020-6/30/2020") +
+          "Based on Citi Bike system data,  2020-06-01 to 2020-06-30") +
   labs(x ="Trip Hours", y =" ")+
   theme_grey(10)+
-  theme(plot.title =element_text(face='bold', color ='steelblue1'))
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
 
 ```
 
@@ -245,7 +473,7 @@ qn_outer_2020_plot <-  ggplot(data = qn_outer_2020, aes(x=hour,y =total_num_trip
 Very few people take Citi bikes in Queens since there are fewer bike stations in Queens. It still worths us to take a look on riders' pattern.
 In the morning rush hours, there are around 700 riders take bikes as their way to Manhattan and 200 riders to Brooklyn for both 2018 and 2019. Things change a little bit in 2020, there are around 1000 riders take bikes to Manhattan, 400 riders to Brooklyn. Rider numbers almost doubled in 2020. It has the similar pattern as people live in Manhattan and go to Queens or Brooklyn in the morning. Due to pandemic and social distance advocate, people in New York city tend to ride more bikes than usual to avoid taking subways or buses in the morning rush hours.
 
-```{r}
+```{r,fig.width=9, fig.height=4}
 ###Queens to Outers
 
 ggarrange(qn_outer_2018_plot, qn_outer_2019_plot, qn_outer_2020_plot, 
@@ -265,17 +493,17 @@ bk_outer_2018 =df_2018[df_2018$start_borough=="Brooklyn" & df_2018$end_borough!=
 bk_outer_2018_plot <- ggplot(data = bk_outer_2018, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +
   ggtitle("2018 NYC Citi Bike Trips from Brooklyn to outers ", 
-          "Based on Citi Bike system data,  6/1/2018-6/30/2018") +
+          "Based on Citi Bike system data,  2018-06-01 to 2018-06-30") +
   labs(x ="Trip Hours", y =" ")+
   theme_grey(10)+
-  theme(plot.title =element_text(face='bold', color ='steelblue1'))
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
 
 bk_outer_2019 =df_2019[df_2019$start_borough=="Brooklyn" &df_2019$end_borough!='Brooklyn', ]
 
 bk_outer_2019_plot <- ggplot(data = bk_outer_2019, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +coord_cartesian(ylim = c(0, 6000))+
   ggtitle("2019 NYC Citi Bike Trips from Brooklyn to outers ", 
-          "Based on Citi Bike system data,  6/1/2019-6/30/2019") +
+          "Based on Citi Bike system data,  2019-06-01 to 2019-06-30") +
  labs(x ="Trip Hours", y ="Average Hourly Citi Bike trips")+
   theme_grey(10)+
   theme(plot.title =element_text(face='bold', color ='steelblue2'),
@@ -288,10 +516,10 @@ bk_outer_2020 <-as.data.frame(bk_outer_2020)
 bk_outer_2020_plot <-  ggplot(data = bk_outer_2020, aes(x=hour,y =total_num_trips, color =route))+
   geom_point()+geom_line() +coord_cartesian(ylim = c(0, 6000))+
   ggtitle("2020 NYC Citi Bike Trips from Brooklyn to outers ", 
-          "Based on Citi Bike system data,  6/1/2020-6/30/2020") +
+          "Based on Citi Bike system data,  2020-06-01 to 2020-06-30") +
   labs(x ="Trip Hours", y =" ")+
   theme_grey(10)+
-  theme(plot.title =element_text(face='bold', color ='steelblue1'))
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
 
 
 ```
@@ -299,7 +527,7 @@ bk_outer_2020_plot <-  ggplot(data = bk_outer_2020, aes(x=hour,y =total_num_trip
 4. Brooklyn to Outers
 Brooklyn has a different story compare with their peers in Manhattan and Queens. In 2018 and 2019, more people take bikes to go to other counties with average 6500 trips in the morning rush hours, it dropped to 3000 trips in 2020. I performed a deeper analysis on Brooklyn residents. Most of those trips between Brooklyn bridge and lower Manhattan, since a lot of financial companies are taking strict work from home policy. It explains why riders reduce so many between Brooklyn and Manhattan but not many changes between Brooklyn and Queens.
 
-```{r}
+```{r,fig.width=9, fig.height=4}
 
 ###Brooklyn to Outers
 ggarrange(bk_outer_2018_plot, bk_outer_2019_plot, bk_outer_2020_plot, 

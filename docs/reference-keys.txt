@@ -17,3 +17,6 @@ place-a-holder-for-5.3
 place-a-holder-for-5.4
 bike-users-route-patternhow-people-use-it-as-the-commute-tool
 place-a-holder-for-5.7
+the-membership-analysis-age-gender-annual-memberships-or-subscriber
+time-series-on-bike-usage-2018--2020
+weekdayweekend-usage

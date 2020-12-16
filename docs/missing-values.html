@@ -24,7 +24,7 @@
 <meta name="author" content="Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134), Jiayin Lin (jl5802)" />
 
 
-<meta name="date" content="2020-12-05" />
+<meta name="date" content="2020-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="data-transformation.html"/>
 <link rel="next" href="results.html"/>
-<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +50,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
@@ -73,13 +73,25 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
-<ul>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a><ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#destfilecusersxiaonandesktopfall-20205702final-projectfinal_project_5702201502.zip"><i class="fa fa-check"></i><b>2.1</b> destfile=“C:/Users/Xiaonan/Desktop/Fall 2020/5702/Final Project/final_project_5702/201502.zip”)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#variable-outliers"><i class="fa fa-check"></i><b>3.1</b> Variable outliers</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a><ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-column-and-row"><i class="fa fa-check"></i><b>4.1</b> Missing values by Column and Row</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-pattern-by-year-and-month"><i class="fa fa-check"></i><b>4.2</b> Missing pattern by Year and Month</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#dealing-with-missing-values"><i class="fa fa-check"></i><b>4.3</b> Dealing with missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#the-membership-analysis-age-gender-annual-memberships-or-subscriber"><i class="fa fa-check"></i><b>5.1</b> The Membership analysis (Age, Gender, Annual memberships or Subscriber)</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#time-series-on-bike-usage-2018--2020"><i class="fa fa-check"></i><b>5.2</b> Time Series on Bike Usage (2018 -2020)</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#weekdayweekend-usage"><i class="fa fa-check"></i><b>5.3</b> Weekday/Weekend Usage</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#temerature-affects-on-the-bike-usage"><i class="fa fa-check"></i><b>5.4</b> Temerature affects on the Bike usage</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#bike-users-route-patternhow-people-use-it-as-the-commute-tool"><i class="fa fa-check"></i><b>5.5</b> Bike Users’ route pattern(How people use it as the commute tool)</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#place-a-holder-for-5.7"><i class="fa fa-check"></i><b>5.6</b> place a holder for 5.7</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -101,9 +113,40 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="missing-values" class="section level1" number="4">
+<div id="missing-values" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
+<p>For simplicity of the analysis, we extracted abnormal data (missing data, outliers) using SQL and gathered the result into 2 csv files, abnormal_data.csv and abnormal_location.csv. To explore the missing value patterns, we only need abnormal_data.csv.</p>
+<div id="missing-values-by-column-and-row" class="section level2">
+<h2><span class="header-section-number">4.1</span> Missing values by Column and Row</h2>
+<pre><code>##        start.station.id      start.station.name          end.station.id 
+##                    2677                    2677                    2677 
+##        end.station.name            tripduration               starttime 
+##                    2677                       0                       0 
+##                stoptime  start.station.latitude start.station.longitude 
+##                       0                       0                       0 
+##    end.station.latitude   end.station.longitude                  bikeid 
+##                       0                       0                       0 
+##                usertype              birth.year                  gender 
+##                       0                       0                       0</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>We can see that all missing entries are in 4 columns, the start station’s name, id, and the end station’s name id. The 4 columns have the <strong>same</strong> missing value count of <strong>2677</strong>. In fact, it can be observed that if a row contains a missing value, all 4 columns (start station name, start station id, end station name, end station id) will contain missing values.</p>
+<pre><code>##   missing_count row_count
+## 1             0     48559
+## 2             4      2677</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>We can see that there are <strong>2677</strong> rows that contain 4 missing entries, and other rows don’t have any missing entries. This verifies that if a row contains a missing value, all 4 columns (start station name, start station id, end station name, end station id) will be missing.</p>
+</div>
+<div id="missing-pattern-by-year-and-month" class="section level2">
+<h2><span class="header-section-number">4.2</span> Missing pattern by Year and Month</h2>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>The plot above shows that there are many missing entries in 2018, especially 2018-08, with more than 1000 rows that have missing values. There are only a few missing rows in 2019, and there are no missing rows in 2020.</p>
+</div>
+<div id="dealing-with-missing-values" class="section level2">
+<h2><span class="header-section-number">4.3</span> Dealing with missing values</h2>
+<p>We decided that we discard all these rows that contain missing values and outliers <strong>before</strong> we conduct any further analysis.</p>
+<p>It should be noted that there are only 2677 rows that contains missing values. If we include rows that have outliers, we only need to discard about 50000 rows. Comparing to the overall data size of about 55 million rows, we are only throwing away a small portion, which will not largely impact our analysis.</p>
 
+</div>
 </div>
             </section>
 
