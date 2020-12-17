@@ -50,6 +50,9 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 
@@ -84,7 +87,7 @@
 <li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#time-series-on-bike-usage-2018--2020"><i class="fa fa-check"></i><b>5.2</b> Time Series on Bike Usage (2018 -2020)</a></li>
 <li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#weekdayweekend-usage"><i class="fa fa-check"></i><b>5.3</b> Weekday/Weekend Usage</a></li>
 <li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#temerature-affects-on-the-bike-usage"><i class="fa fa-check"></i><b>5.4</b> Temerature affects on the Bike usage</a></li>
-<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#bike-users-route-patternhow-people-use-it-as-the-commute-tool"><i class="fa fa-check"></i><b>5.5</b> Bike Users' route pattern(How people use it as the commute tool)</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#bike-users-route-patternhow-people-use-it-as-the-commute-tool"><i class="fa fa-check"></i><b>5.5</b> Bike Users’ route pattern(How people use it as the commute tool)</a></li>
 <li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#top-popular-stations-by-year"><i class="fa fa-check"></i><b>5.6</b> Top Popular stations by year</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
@@ -110,115 +113,214 @@
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
-<!DOCTYPE html>
 <html lang="en">
-<pre><code>&lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;title&gt;&lt;/title&gt;
-    &lt;script src=&quot;https://d3js.org/d3.v6.js&quot;&gt;&lt;/script&gt;
-    &lt;style type =&quot;text/css&quot;&gt;
-    &lt;/style&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-
-&lt;svg width=&quot;1000&quot; height=&quot;300&quot; id=&quot;svg1&quot;&gt;&lt;/svg&gt;
-&lt;svg width=&quot;1000&quot; height=&quot;300&quot; id=&quot;svg2&quot;&gt;&lt;/svg&gt;
-
-&lt;script&gt;
-
-  var svg1 = d3.select(&quot;#svg1&quot;)
-  var margin = {top: 20, right: 50, bottom: 30, left: 50}
-  var width =  svg1.attr(&quot;width&quot;) - margin.left - margin.right
-  var height = svg1.attr(&quot;height&quot;) - margin.top - margin.bottom
-  var g1 = svg1.append(&quot;g&quot;).attr(&quot;transform&quot;, `translate(${margin.left}, ${margin.top})`);
-
-  var xScale = d3.scaleBand().domain(d3.range(24)).range([0, width]).paddingInner(0.05);
-  var yScale = d3.scaleLinear().domain([0, 4000]).range([height, 0]);
+<head>
+<meta charset="utf-8">
+<title>
+</title>
+<script src="https://d3js.org/d3.v6.js"></script>
+<style type ="text/css">
+        </style>
+</head>
+<body>
+<svg width="1000" height="300" id="svg1">
+</svg>
+<svg width="1000" height="300" id="svg2">
+</svg>
+<script>
     
-  var xAxis = d3.axisBottom(xScale);
-  var yAxis = d3.axisLeft(yScale);
-  
-  g1.append(&quot;g&quot;).attr(&quot;transform&quot;, `translate(0, ${height})`).call(xAxis);
-  g1.append(&quot;g&quot;).call(yAxis);
-  g1.append(&quot;g&quot;).call(yAxis);
-  
-  var readfile = function(d){
-    return {
-      is_weekend: d.is_weekend,
-      hour: d.hour,
-      trips: d.total_num_trips/1000 
-    }
-  };
-  
-  d3.csv(&quot;https://raw.githubusercontent.com/ds-eda-viz/NYC-Bike-Share/main/rendered_data/weekend_weekday_dist.csv&quot;, readfile)
-    .then(function(data){
-      
-      var weekday = data.filter(function(d) {return d.is_weekend == &quot;weekday&quot;;});
-      var bars = g1.selectAll(&quot;.bar&quot;).data(weekday).enter().append(&quot;rect&quot;).attr(&quot;class&quot;, &quot;bar&quot;)
-      
-      bars.attr(&quot;x&quot;, function(d) {return xScale(d.hour);})
-      .attr(&quot;y&quot;, function(d) {return yScale(d.trips);})
-      .attr(&quot;width&quot;, xScale.bandwidth()*0.95)
-      .attr(&quot;height&quot;, function(d) {return height - yScale(d.trips)})
-      .attr(&quot;fill&quot;, &quot;steelblue&quot;)
-      .on(&quot;mouseover&quot;, function(){ d3.select(this).attr(&quot;fill&quot;, &quot;orange&quot;);})
-      .on(&quot;mouseout&quot;, function(){ d3.select(this).attr(&quot;fill&quot;, &quot;steelblue&quot;);});
-      
-      g1.append(&quot;text&quot;)
-      .attr(&quot;x&quot;, &quot;10&quot;)
-      .attr(&quot;y&quot;, &quot;20&quot;)
-      .text(&quot;Number of Trips during Weekdays&quot;);
-      g1.append(&quot;text&quot;)
-      .attr(&quot;x&quot;, &quot;10&quot;)
-      .attr(&quot;y&quot;, &quot;40&quot;)
-      .text(&quot;(in thousands)&quot;);
-      
-    });
-    
-  /////////////
-  
-  var svg = d3.select(&quot;#svg2&quot;)
-  var margin = {top: 20, right: 50, bottom: 30, left: 50}
-  var width =  svg.attr(&quot;width&quot;) - margin.left - margin.right
-  var height = svg.attr(&quot;height&quot;) - margin.top - margin.bottom
-  var g2 = svg.append(&quot;g&quot;).attr(&quot;transform&quot;, `translate(${margin.left}, ${margin.top})`);
-  
-  var xScale = d3.scaleBand().domain(d3.range(24)).range([0, width]);
-  var yScale = d3.scaleLinear().domain([0, 4000]).range([height, 0]);
-    
-  var xAxis = d3.axisBottom(xScale);
-  var yAxis = d3.axisLeft(yScale);
-  
-  g2.append(&quot;g&quot;).attr(&quot;transform&quot;, `translate(0, ${height})`).call(xAxis);
-  g2.append(&quot;g&quot;).call(yAxis)
-  
-  d3.csv(&quot;https://raw.githubusercontent.com/ds-eda-viz/NYC-Bike-Share/main/rendered_data/weekend_weekday_dist.csv&quot;, readfile)
-    .then(function(data){
-      var weekend = data.filter(function(d) {return d.is_weekend == &quot;weekend&quot;;})
-      var bars = g2.selectAll(&quot;.bar&quot;).data(weekend).enter().append(&quot;rect&quot;).attr(&quot;class&quot;, &quot;bar&quot;)
-      
-      bars.attr(&quot;x&quot;, function(d) {return xScale(d.hour);})
-      .attr(&quot;y&quot;, function(d) {return yScale(d.trips);})
-      .attr(&quot;width&quot;, xScale.bandwidth()*0.95)
-      .attr(&quot;height&quot;, function(d) {return height - yScale(d.trips)})
-      .attr(&quot;fill&quot;, &quot;steelblue&quot;)
-      .on(&quot;mouseover&quot;, function(){ d3.select(this).attr(&quot;fill&quot;, &quot;orange&quot;);})
-      .on(&quot;mouseout&quot;, function(){ d3.select(this).attr(&quot;fill&quot;, &quot;steelblue&quot;);});
-      
-      g2.append(&quot;text&quot;)
-      .attr(&quot;x&quot;, &quot;10&quot;)
-      .attr(&quot;y&quot;, &quot;20&quot;)
-      .text(&quot;Number of Trips during Weekends&quot;);
-      g2.append(&quot;text&quot;)
-      .attr(&quot;x&quot;, &quot;10&quot;)
-      .attr(&quot;y&quot;, &quot;40&quot;)
-      .text(&quot;(in thousands)&quot;);
-    });
+      var svg1 = d3.select("#svg1")
+      var margin = {top: 20, right: 50, bottom: 30, left: 50}
+      var width =  svg1.attr("width") - margin.left - margin.right
+      var height = svg1.attr("height") - margin.top - margin.bottom
+      var g1 = svg1.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-&lt;/script&gt;
+      var xScale = d3.scaleBand().domain(d3.range(24)).range([0, width]).paddingInner(0.05);
+      var yScale = d3.scaleLinear().domain([0, 4000]).range([height, 0]);
+        
+      var xAxis = d3.axisBottom(xScale);
+      var yAxis = d3.axisLeft(yScale);
+      
+      g1.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
+      g1.append("g").call(yAxis);
+      g1.append("g").call(yAxis);
+      
+      var readfile = function(d){
+        return {
+          is_weekend: d.is_weekend,
+          hour: d.hour,
+          trips: d.total_num_trips/1000 
+        }
+      };
+      
+      d3.csv("https://raw.githubusercontent.com/ds-eda-viz/NYC-Bike-Share/main/rendered_data/weekend_weekday_dist.csv", readfile)
+        .then(function(data){
+          
+          var weekday = data.filter(function(d) {return d.is_weekend == "weekday";});
+          var bars = g1.selectAll(".bar").data(weekday).enter().append("rect").attr("class", "bar")
+          
+          bars.attr("x", function(d) {return xScale(d.hour);})
+          .attr("y", function(d) {return yScale(d.trips);})
+          .attr("width", xScale.bandwidth()*0.95)
+          .attr("height", function(d) {return height - yScale(d.trips)})
+          .attr("fill", "steelblue")
+          .on("mouseover", function(){ d3.select(this).attr("fill", "orange");})
+          .on("mouseout", function(){ d3.select(this).attr("fill", "steelblue");});
+          
+          g1.append("text")
+          .attr("x", "10")
+          .attr("y", "20")
+          .text("Number of Trips during Weekdays");
+          g1.append("text")
+          .attr("x", "10")
+          .attr("y", "40")
+          .text("(in thousands)");
+          
+        });
+        
+      /////////////
+      
+      var svg = d3.select("#svg2")
+      var margin = {top: 20, right: 50, bottom: 30, left: 50}
+      var width =  svg.attr("width") - margin.left - margin.right
+      var height = svg.attr("height") - margin.top - margin.bottom
+      var g2 = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      
+      var xScale = d3.scaleBand().domain(d3.range(24)).range([0, width]);
+      var yScale = d3.scaleLinear().domain([0, 4000]).range([height, 0]);
+        
+      var xAxis = d3.axisBottom(xScale);
+      var yAxis = d3.axisLeft(yScale);
+      
+      g2.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
+      g2.append("g").call(yAxis)
+      
+      d3.csv("https://raw.githubusercontent.com/ds-eda-viz/NYC-Bike-Share/main/rendered_data/weekend_weekday_dist.csv", readfile)
+        .then(function(data){
+          var weekend = data.filter(function(d) {return d.is_weekend == "weekend";})
+          var bars = g2.selectAll(".bar").data(weekend).enter().append("rect").attr("class", "bar")
+          
+          bars.attr("x", function(d) {return xScale(d.hour);})
+          .attr("y", function(d) {return yScale(d.trips);})
+          .attr("width", xScale.bandwidth()*0.95)
+          .attr("height", function(d) {return height - yScale(d.trips)})
+          .attr("fill", "steelblue")
+          .on("mouseover", function(){ d3.select(this).attr("fill", "orange");})
+          .on("mouseout", function(){ d3.select(this).attr("fill", "steelblue");});
+          
+          g2.append("text")
+          .attr("x", "10")
+          .attr("y", "20")
+          .text("Number of Trips during Weekends");
+          g2.append("text")
+          .attr("x", "10")
+          .attr("y", "40")
+          .text("(in thousands)");
+        });
+    
+    </script>
+</body>
+<head>
+<meta charset="utf-8">
+<title>
+</title>
+<script src="https://d3js.org/d3.v6.js"></script>
+<style type ="text/css">
+      .line18 {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 2.0px;
+      }
+      #format1{
+              font-size:30px;
+              font-family:Palatino;}
+              
+     
+        </style>
+</head>
+<body>
+<svg width="800" height="400" id="svg3">
+<text id="format1" x="200" y="80">Total Bike Trips 2018-2020</text>
+</svg>
+<script>
+      var svg = d3.select("#svg3")
+      var margin = {top: 100, right: 50, bottom: 30, left: 60}
+      var width =  +svg.attr("width") - margin.left - margin.right
+      var height = +svg.attr("height") - margin.top - margin.bottom
+      var g = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      var parseTime = d3.timeParse("%b-%y");
+      var xScale = d3.scaleTime().range([0, width]);
+      var yScale = d3.scaleLinear()
+        .domain([70000, 3000000])
+        .range([height, 0]);
+      var line = d3.line()
+        .x(d => xScale(d.date))
+        .y(d => yScale(d.high));
+      var data = 
+      [{"date":"Jan-18","high":718994},
+        {"date":"Feb-18","high":843114},
+        {"date":"Mar-18","high":976672},
+        {"date":"Apr-18","high":1307543},
+        {"date":"May-18","high":1824710},
+        {"date":"Jun-18","high":1953103},
+        {"date":"Jul-18","high":1913625},
+        {"date":"Aug-18","high":1977177},
+        {"date":"Sep-18","high":1877884},
+        {"date":"Oct-18","high":1878657},
+        {"date":"Nov-18","high":1260355},
+        {"date":"Dec-18","high":1016505},
+        {"date":"Jan-19","high":967287},
+        {"date":"Feb-19","high":943744},
+        {"date":"Mar-19","high":1327960},
+        {"date":"Apr-19","high":1766094},
+        {"date":"May-19","high":1924563},
+        {"date":"Jun-19","high":2125370},
+        {"date":"Jul-19","high":2181064},
+        {"date":"Aug-19","high":2344224},
+        {"date":"Sep-19","high":2444900},
+        {"date":"Oct-19","high":2092573},
+        {"date":"Nov-19","high":1478708},
+        {"date":"Dec-19","high":955210},
+        {"date":"Jan-20","high":1240596},
+        {"date":"Feb-20","high":1146830},
+        {"date":"Mar-20","high":1068457},
+        {"date":"Apr-20","high":682762},
+        {"date":"May-20","high":1487890},
+        {"date":"Jun-20","high":1882273},
+        {"date":"Jul-20","high":2105808},
+        {"date":"Aug-20","high":2329514},
+        {"date":"Sep-20","high":2488225},
+        {"date":"Oct-20","high":2248869}];
+        
+      data.forEach(function(d) {
+            d.date = parseTime(d.date);
+      });
+     
+      xScale
+        .domain(d3.extent(data, d => d.date));
+        
+      g.append("g")
+          .attr("transform", `translate(0, ${height})`)
+          .call(d3.axisBottom(xScale).ticks(18));
+      g.append("g")
+          .call(d3.axisLeft(yScale))
+      g.append("path")
+          .datum(data)
+          .attr("class", "line18")
+          .attr("fill", "none")
+          .attr("d", line);
+          
+      let totalLength18 = svg.select('.line18').node().getTotalLength();
 
-&lt;/body&gt;</code></pre>
+      svg.select('.line18')
+        .attr("stroke-dasharray", totalLength18 + " " + totalLength18)
+        .attr("stroke-dashoffset", totalLength18)
+        .transition() // Call Transition Method
+        .duration(2000) // Set Duration timing (ms)
+        .ease(d3.easeLinear) // Set Easing option
+        .attr("stroke-dashoffset", 0); 
+</script>
+</body>
 </html>
 
 </div>
