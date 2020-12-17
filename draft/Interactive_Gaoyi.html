@@ -1,0 +1,363 @@
+<html lang="en">
+    
+<head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="https://d3js.org/d3.v6.js"></script>
+        <style type ="text/css">
+
+      .line1 {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 2.0px;
+      }
+	  
+	  .line18 {
+        fill: none;
+        stroke: green;
+        stroke-width: 2.0px;
+      }
+	  
+	  .line19 {
+        fill: none;
+        stroke: blue;
+        stroke-width: 2.0px;
+      }
+	  .line20 {
+        fill: none;
+        stroke: red;
+        stroke-width: 2.0px;
+      }
+	  
+	  
+	  #format1{
+			  font-size:30px;
+			  font-family:Palatino;}
+			  
+	  #format2{
+			  font-size:15px;
+			  font-family:Palatino;}
+        </style>
+		
+		
+        </style>
+    </head>
+    
+    <body>
+    <svg width="1000" height="500" id="svg3">
+	<text id="format1" x="200" y="80">Total Bike Trips 2018-2020</text>
+	</svg>
+	
+	<svg width="1000" height="500" id="svg4">
+	<rect id="year18" x="100" y="120" width=80 height=40 fill="lightgreen"></rect>
+	<rect id="year19" x="200" y="120" width=80 height=40 fill="lightblue"></rect>
+	<rect id="year20" x="300" y="120" width=80 height=40 fill="pink"></rect>
+	
+	<text id="format1" x="200" y="80">Total Bike Trips by Year</text>
+	<text id="format2" x="400" y="140">Click year to run</text>
+	<text x="120" y="140">2018</text>
+	<text x="220" y="140">2019</text>
+	<text x="320" y="140">2020</text>
+	</svg>
+	
+    <svg width="1000" height="600" id="svg1">
+	<text id="format1" x="200" y="120">Number of Trips during Weekdays (in thousands)</text>
+	</svg>
+	
+    <svg width="1000" height="600" id="svg2">
+	<text id="format1" x="200" y="160">Number of Trips during Weekends (in thousands)</text>
+	</svg>
+	
+	
+    
+    <script>
+      
+	  var svg3 = d3.select("#svg3")
+      var margin3 = {top: 100, right: 50, bottom: 30, left: 60}
+      var width3 =  +svg3.attr("width") - margin3.left - margin3.right
+      var height3 = +svg3.attr("height") - margin3.top - margin3.bottom
+      var g3 = svg3.append("g").attr("transform", `translate(${margin3.left}, ${margin3.top})`);
+      var parseTime = d3.timeParse("%b-%y");
+      var xScale3 = d3.scaleTime().range([0, width3]);
+      var yScale3 = d3.scaleLinear()
+        .domain([70000, 3000000])
+        .range([height3, 0]);
+      var line3 = d3.line()
+        .x(d => xScale3(d.date))
+        .y(d => yScale3(d.high));
+      var data3 = 
+      [{"date":"Jan-18","high":718994},
+		{"date":"Feb-18","high":843114},
+		{"date":"Mar-18","high":976672},
+		{"date":"Apr-18","high":1307543},
+		{"date":"May-18","high":1824710},
+		{"date":"Jun-18","high":1953103},
+		{"date":"Jul-18","high":1913625},
+		{"date":"Aug-18","high":1977177},
+		{"date":"Sep-18","high":1877884},
+		{"date":"Oct-18","high":1878657},
+		{"date":"Nov-18","high":1260355},
+		{"date":"Dec-18","high":1016505},
+		{"date":"Jan-19","high":967287},
+		{"date":"Feb-19","high":943744},
+		{"date":"Mar-19","high":1327960},
+		{"date":"Apr-19","high":1766094},
+		{"date":"May-19","high":1924563},
+		{"date":"Jun-19","high":2125370},
+		{"date":"Jul-19","high":2181064},
+		{"date":"Aug-19","high":2344224},
+		{"date":"Sep-19","high":2444900},
+		{"date":"Oct-19","high":2092573},
+		{"date":"Nov-19","high":1478708},
+		{"date":"Dec-19","high":955210},
+		{"date":"Jan-20","high":1240596},
+		{"date":"Feb-20","high":1146830},
+		{"date":"Mar-20","high":1068457},
+		{"date":"Apr-20","high":682762},
+		{"date":"May-20","high":1487890},
+		{"date":"Jun-20","high":1882273},
+		{"date":"Jul-20","high":2105808},
+		{"date":"Aug-20","high":2329514},
+		{"date":"Sep-20","high":2488225},
+		{"date":"Oct-20","high":2248869}];
+		
+      data3.forEach(function(d) {
+            d.date = parseTime(d.date);
+      });
+     
+      xScale3
+        .domain(d3.extent(data3, d => d.date));
+        
+      g3.append("g")
+          .attr("transform", `translate(0, ${height3})`)
+          .call(d3.axisBottom(xScale3).ticks(18));
+      g3.append("g")
+          .call(d3.axisLeft(yScale3));
+      g3.append("path")
+          .datum(data3)
+          .attr("class", "line1")
+          .attr("fill", "none")
+          .attr("d", line3);
+		  
+	  let totalLength1 = svg3.select('.line1').node().getTotalLength();
+
+	  svg3.select('.line1')
+		.attr("stroke-dasharray", totalLength1 + " " + totalLength1)
+		.attr("stroke-dashoffset", totalLength1)
+		.transition() // Call Transition Method
+		.duration(2000) // Set Duration timing (ms)
+		.ease(d3.easeLinear) // Set Easing option
+		.attr("stroke-dashoffset", 0); 
+		
+		
+//////////////////////////////////////////////////////////////////////// 
+var svg4 = d3.select("#svg4")
+      var margin4 = {top: 100, right: 50, bottom: 30, left: 60}
+      var width4 =  +svg4.attr("width") - margin4.left - margin4.right
+      var height4 = +svg4.attr("height") - margin4.top - margin4.bottom
+      var g4 = svg4.append("g").attr("transform", `translate(${margin4.left}, ${margin4.top})`);
+	  
+      var parseTime4 = d3.timeParse("%b");
+      var xScale4 = d3.scaleTime().range([0, width4]);
+      var yScale4 = d3.scaleLinear()
+        .domain([70000, 3000000])
+        .range([height4, 0]);
+      var line4 = d3.line()
+        .x(d => xScale4(d.date))
+        .y(d => yScale4(d.high));
+      var data18 = 
+      [{"date":"Jan","high":718994},
+		{"date":"Feb","high":843114},
+		{"date":"Mar","high":976672},
+		{"date":"Apr","high":1307543},
+		{"date":"May","high":1824710},
+		{"date":"Jun","high":1953103},
+		{"date":"Jul","high":1913625},
+		{"date":"Aug","high":1977177},
+		{"date":"Sep","high":1877884},
+		{"date":"Oct","high":1878657},
+		{"date":"Nov","high":1260355},
+		{"date":"Dec","high":1016505}
+		];
+	    var data19 = 
+      [{"date":"Jan","high":967287},
+		{"date":"Feb","high":943744},
+		{"date":"Mar","high":1327960},
+		{"date":"Apr","high":1766094},
+		{"date":"May","high":1924563},
+		{"date":"Jun","high":2125370},
+		{"date":"Jul","high":2181064},
+		{"date":"Aug","high":2344224},
+		{"date":"Sep","high":2444900},
+		{"date":"Oct","high":2092573},
+		{"date":"Nov","high":1478708},
+		{"date":"Dec","high":955210}
+		];
+		var data20=
+		[{"date":"Jan","high":1240596},
+		{"date":"Feb","high":1146830},
+		{"date":"Mar","high":1068457},
+		{"date":"Apr","high":682762},
+		{"date":"May","high":1487890},
+		{"date":"Jun","high":1882273},
+		{"date":"Jul","high":2105808},
+		{"date":"Aug","high":2329514},
+		{"date":"Sep","high":2488225},
+		{"date":"Oct","high":2248869}];
+		
+      data18.forEach(function(d) {
+            d.date = parseTime4(d.date);
+      });
+      data19.forEach(function(d) {
+            d.date = parseTime4(d.date);
+      });
+	  data20.forEach(function(d) {
+            d.date = parseTime4(d.date);
+      });
+      xScale4
+        .domain(d3.extent(data18, d => d.date));
+        
+      g4.append("g")
+          .attr("transform", `translate(0, ${height4})`)
+          .call(d3.axisBottom(xScale4).ticks(18));
+      g4.append("g")
+          .call(d3.axisLeft(yScale4))
+      g4.append("path")
+          .datum(data18)
+          .attr("class", "line18")
+          .attr("fill", "none")
+          .attr("d", line4);
+	
+      g4.append("path")
+          .datum(data19)
+          .attr("class", "line19")
+          .attr("fill", "none")
+          .attr("d", line4);
+	
+	  g4.append("path")
+          .datum(data20)
+          .attr("class", "line20")
+          .attr("fill", "none")
+          .attr("d", line4);
+	  
+	  let totalLength18 = svg4.select('.line18').node().getTotalLength();
+	  let totalLength19 = svg4.select('.line19').node().getTotalLength();
+	  let totalLength20 = svg4.select('.line20').node().getTotalLength();
+	  
+	  svg4.select("#year18")
+		  .on("click", function() {
+			svg4.select('.line18')
+			.attr("stroke-dasharray", totalLength18 + " " + totalLength18)
+			.attr("stroke-dashoffset", totalLength18)
+			.transition() // Call Transition Method
+			.duration(2000) // Set Duration timing (ms)
+			.ease(d3.easeLinear) // Set Easing option
+			.attr("stroke-dashoffset", 0); 
+			  });
+	  
+	  svg4.select("#year19")
+		  .on("click", function() {
+			svg4.select('.line19')
+			.attr("stroke-dasharray", totalLength19 + " " + totalLength19)
+			.attr("stroke-dashoffset", totalLength19)
+			.transition() // Call Transition Method
+			.duration(2000) // Set Duration timing (ms)
+			.ease(d3.easeLinear) // Set Easing option
+			.attr("stroke-dashoffset", 0); 
+			  });
+	 svg4.select("#year20")
+		  .on("click", function() {
+			svg4.select('.line20')
+			.attr("stroke-dasharray", totalLength20 + " " + totalLength20)
+			.attr("stroke-dashoffset", totalLength20)
+			.transition() // Call Transition Method
+			.duration(2000) // Set Duration timing (ms)
+			.ease(d3.easeLinear) // Set Easing option
+			.attr("stroke-dashoffset", 0); 
+			  });
+
+
+////////////////////////////////////////////////////////////////////////
+	  
+      var svg1 = d3.select("#svg1")
+      var margin = {top: 150, right: 50, bottom: 50, left: 50}
+      var width =  svg1.attr("width") - margin.left - margin.right
+      var height = svg1.attr("height") - margin.top - margin.bottom
+      var g1 = svg1.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+      var xScale = d3.scaleBand().domain(d3.range(24)).range([0, width]).paddingInner(0.05);
+      var yScale = d3.scaleLinear().domain([0, 4000]).range([height, 0]);
+        
+      var xAxis = d3.axisBottom(xScale);
+      var yAxis = d3.axisLeft(yScale);
+      
+      g1.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
+      g1.append("g").call(yAxis);
+      g1.append("g").call(yAxis);
+      
+      var readfile = function(d){
+        return {
+          is_weekend: d.is_weekend,
+          hour: d.hour,
+          trips: d.total_num_trips/1000 
+        }
+      };
+      
+      d3.csv("https://raw.githubusercontent.com/ds-eda-viz/NYC-Bike-Share/main/rendered_data/weekend_weekday_dist.csv", readfile)
+        .then(function(data){
+          
+          var weekday = data.filter(function(d) {return d.is_weekend == "weekday";});
+          var bars = g1.selectAll(".bar").data(weekday).enter().append("rect").attr("class", "bar")
+          
+          bars.attr("x", function(d) {return xScale(d.hour);})
+          .attr("y", function(d) {return yScale(d.trips);})
+          .attr("width", xScale.bandwidth()*0.95)
+          .attr("height", function(d) {return height - yScale(d.trips)})
+          .attr("fill", "steelblue")
+          .on("mouseover", function(){ d3.select(this).attr("fill", "orange");})
+		  
+          .on("mouseout", function(){ d3.select(this).attr("fill", "steelblue");});
+          
+         
+          
+        });
+        
+      ///////////////////////////////////////////////////////////////////
+      
+      var svg = d3.select("#svg2")
+      var margin = {top: 150, right: 50, bottom: 50, left: 50}
+      var width =  svg.attr("width") - margin.left - margin.right
+      var height = svg.attr("height") - margin.top - margin.bottom
+      var g2 = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      
+      var xScale = d3.scaleBand().domain(d3.range(24)).range([0, width]);
+      var yScale = d3.scaleLinear().domain([0, 4000]).range([height, 0]);
+        
+      var xAxis = d3.axisBottom(xScale);
+      var yAxis = d3.axisLeft(yScale);
+      
+      g2.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
+      g2.append("g").call(yAxis)
+      
+      d3.csv("https://raw.githubusercontent.com/ds-eda-viz/NYC-Bike-Share/main/rendered_data/weekend_weekday_dist.csv", readfile)
+        .then(function(data){
+          var weekend = data.filter(function(d) {return d.is_weekend == "weekend";})
+          var bars = g2.selectAll(".bar").data(weekend).enter().append("rect").attr("class", "bar")
+          
+          bars.attr("x", function(d) {return xScale(d.hour);})
+          .attr("y", function(d) {return yScale(d.trips);})
+          .attr("width", xScale.bandwidth()*0.95)
+          .attr("height", function(d) {return height - yScale(d.trips)})
+          .attr("fill", "steelblue")
+          .on("mouseover", function(){ d3.select(this).attr("fill", "orange");})
+          .on("mouseout", function(){ d3.select(this).attr("fill", "steelblue");});
+          
+         
+        });
+    
+    </script>
+    
+    </body>
+
+</html>
+
