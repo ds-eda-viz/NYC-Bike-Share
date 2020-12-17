@@ -12,7 +12,6 @@ time-series-on-bike-usage-2018--2020
 weekdayweekend-usage
 temerature-affects-on-the-bike-usage
 bike-users-route-patternhow-people-use-it-as-the-commute-tool
-place-a-holder-for-5.7
+top-popular-stations-by-year
 interactive-component
 conclusion
-top-popular-stations-by-year
