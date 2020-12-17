@@ -537,4 +537,76 @@ ggarrange(bk_outer_2018_plot, bk_outer_2019_plot, bk_outer_2020_plot,
 ```
 
 
-## place a holder for 5.7
+## Top Popular stations by year
+
+```{r}
+
+st_2018 <- read.csv('rendered_data/top_10_stations_2018.csv')
+
+st_2019 <- read.csv('rendered_data/top_10_stations_2019.csv')
+
+st_2020 <- read.csv('rendered_data/top_10_stations_2020.csv')
+
+ plt_1 <- ggplot(st_2018, aes(trips_in_thousands, reorder(station_name, trips)))+ geom_point()+
+  ggtitle("2018 NYC Citi Bike popular station", 
+          "Based on Citi Bike system data,  2018-01-01 to 2018-12-31") +
+  labs(x ="Trip in Thousands", y =" ")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
+
+plt_2 <- ggplot(st_2019, aes(trips_in_thousands, reorder(station_name, trips)))+ geom_point()+
+  ggtitle("2019 NYC Citi Bike popular station", 
+          "Based on Citi Bike system data,  2019-01-01 to 2019-12-31") +
+  labs(x ="Trip in Thousands", y =" Station Names ")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
+
+
+plt_3 <- ggplot(st_2020, aes(trips_in_thousands, reorder(station_name, trips)))+ geom_point()+
+  ggtitle("2020 NYC Citi Bike popular station", 
+          "Based on Citi Bike system data,  2020-01-01 to 2020-12-31") +
+  labs(x ="Trip in Thousands", y =" ")+
+  theme_grey(10)+
+  theme(plot.title =element_text(face='bold', color ='steelblue2'))
+
+```
+
+In this topic, we want to get the most popular stations among 3 years, and see the impact of the Covid 19 on the bike usage in stations.
+
+In both 2018 and 2019, the Pershing Square North station is the most population for bike users.
+"
+Pershing Square is a public square in Manhattan, New York City, located where Park Avenue and 42nd Street intersect in front of Grand Central Terminal. The main roadway of Park Avenue crosses over 42nd Street on the Park Avenue Viaduct, also known as the Pershing Square Viaduct. Two service roads, one northbound and one southbound, connect 42nd Street with the main roadway of Park Avenue, at 40th Street.
+
+Pershing Square was named after John J. Pershing in 1919. The name was originally supposed to apply to the block bounded by Park Avenue, Lexington Avenue, 41st Street, and 42nd Street. Three buildings were ultimately developed on the block in the 1920s: the Pershing Square Building, 110 East 42nd Street, and the Chanin Building. Subsequently, the name applied to the service roads of the Park Avenue Viaduct. A tourist information center under the viaduct, at Pershing Square, was built in 1939; it was later reconfigured to be a store and then a restaurant. The service roads between 42nd and 41st Streets were converted into a pedestrian public plaza in 2018.
+"[wiki:]https://en.wikipedia.org/wiki/Pershing_Square,_Manhattan
+
+This is one of the most interesting place in Manhattan, tourist might contribute a lot in the bike usage.
+
+
+
+
+
+
+```{r}
+
+plt_1
+
+```
+
+
+```{r}
+
+plt_2
+
+```
+
+2020 is a different story, Pershing Square North is not longer the top one, it's even not the top3.
+it falls to 11th position, this is largely impact by the covid-19 which New York City takes lock down policy and people choose to stay home, the number of tourists decreased significantly in this year. 
+The top 12 Ave & W40 Bike station is in the terminal of New York and New Jersery Ferry. A lot of people might take the ferry then use the bike as their commute tool inside Manhattan instead of taking subway.
+
+```{r}
+
+plt_3
+
+
+```

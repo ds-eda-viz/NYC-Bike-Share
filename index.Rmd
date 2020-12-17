@@ -30,7 +30,7 @@ In our project, we will break up by different topics:
 
 5. Bike users' routes pattern (How people use it as the commute tool)
 
-6. Top 5 most popular and the lest popular trips
+6. The most popular stations and the impact of Covid 19 on the stations
 
 
 
