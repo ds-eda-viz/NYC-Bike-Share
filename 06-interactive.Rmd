@@ -399,7 +399,7 @@ var svg5=d3.select("#svg5");
 				.data(station_2019, d=>d.key)
 				.enter()
 				.append("rect")
-				.attr("x","550")
+				.attr("x","525")
 				.attr("y",(d,i)=>i*60+150)
 				.attr("width",d=>(d.t))
 				.attr("height",40)
@@ -410,10 +410,21 @@ var svg5=d3.select("#svg5");
 				.data(station_2019, d=>d.key)
 				.enter()
 				.append("text")
-				.attr("x",d=>d.t+560)
-				.attr("y",(d,i)=>i*60+175)
-				.text(d=> `trips: ${d.t}, ${d.name}, ${d.sid}`);
-			
+				.attr("x",d=>d.t+535)
+				.attr("y",(d,i)=>i*60+165)
+				.text(d=> `Trips: ${d.t}, ${d.sid}`)
+				.style("font-size", '10px');
+				
+			svg5.append("g").attr("id", "textsadd")
+			    .selectAll("text")
+				.data(station_2019, d=>d.key)
+				.enter()
+				.append("text")
+				.attr("x",d=>d.t+535)
+				.attr("y",(d,i)=>i*60+180)
+				.text(d=> `${d.name}`)
+				.style("font-size", '10px');
+				
 			svg5.append("g").attr("id","circles")
 			    .selectAll("circle")
 				.data(station_2019, d=>d.key)
@@ -444,6 +455,11 @@ var svg5=d3.select("#svg5");
 				.selectAll("text")
 				.data(station_2019, d=>d.key);
 				
+			   textsadd1=d3.select("#svg5").select("#textsadd")
+				.selectAll("text")
+				.data(station_2019, d=>d.key);
+				
+				
 			   circles1=d3.select("#svg5").select("#circles")
 				.selectAll("circle")
 				.data(station_2019, d=>d.key);
@@ -455,7 +471,7 @@ var svg5=d3.select("#svg5");
 			   rects1.enter()
 				.append("rect")
 				.merge(rects1)
-				.attr("x","550")
+				.attr("x","525")
 				.attr("y",(d,i)=>i*60+150)
 				.attr("width",d=>d.t)
 				.attr("height",40)
@@ -469,11 +485,23 @@ var svg5=d3.select("#svg5");
 			   texts1.enter()
 				.append("text")
 				.merge(texts1)
-				.attr("x",d=>d.t+560)
-				.attr("y",(d,i)=>i*60+175)
-				.text(d=> `trips: ${d.t}, ${d.name}, ${d.sid}`);
+				.attr("x",d=>d.t+535)
+				.attr("y",(d,i)=>i*60+165)
+				.text(d=> `Trips: ${d.t}, ${d.sid}`)
+				.style("font-size", '10px');
+		
 				
 				texts1.exit().remove();	
+				
+			    textsadd1.enter()
+				.append("text")
+				.merge(textsadd1)
+				.attr("x",d=>d.t+535)
+				.attr("y",(d,i)=>i*60+180)
+				.text(d=> `${d.name}`)
+				.style("font-size", '10px');
+		
+				textsadd1.exit().remove();	
 				
 				
 			   circles1.enter()
@@ -509,6 +537,10 @@ var svg5=d3.select("#svg5");
 				.selectAll("text")
 				.data(station_2020, d=>d.key);
 				
+			   textsadd2=d3.select("#svg5").select("#textsadd")
+				.selectAll("text")
+				.data(station_2020, d=>d.key);
+				
 			   circles2=d3.select("#svg5").select("#circles")
 				.selectAll("circle")
 				.data(station_2020, d=>d.key);
@@ -520,7 +552,7 @@ var svg5=d3.select("#svg5");
 			   rects2.enter()
 				.append("rect")
 				.merge(rects2)
-				.attr("x","550")
+				.attr("x","525")
 				.attr("y",(d,i)=>i*60+150)
 				.attr("width",d=>d.t)
 				.attr("height",40)
@@ -534,11 +566,23 @@ var svg5=d3.select("#svg5");
 				texts2.enter()
 				.append("text")
 				.merge(texts2)
-				.attr("x",d=>d.t+560)
-				.attr("y",(d,i)=>i*60+175)
-				.text(d=> `trips: ${d.t}, ${d.name}, ${d.sid}`);
+				.attr("x",d=>d.t+535)
+				.attr("y",(d,i)=>i*60+165)
+				.text(d=> `Trips: ${d.t}, ${d.sid}`)
+				.style("font-size", '10px');
 				
 				texts2.exit().remove();	
+				
+				
+				textsadd2.enter()
+				.append("text")
+				.merge(textsadd2)
+				.attr("x",d=>d.t+535)
+				.attr("y",(d,i)=>i*60+180)
+				.text(d=> `${d.name}`)
+				.style("font-size", '10px');
+		
+				textsadd2.exit().remove();	
 				
 				circles2.enter()
 				.append("circle")
@@ -566,7 +610,6 @@ var svg5=d3.select("#svg5");
 			
 			d3.select("#svg5").select("#data_20")
 			.on("click",changeyear_20);
-			
 				
     </script>
     
