@@ -1,70 +1,40 @@
 # Data transformation
 
-**Part 1 Basic exploration of variables **  
- -- continuous  
--- categorical  
-Histogram  
-Boxplot  
-Bar chart  
-....
-You may not ride a Bicycle if You are under 16 years of age. A minor who is 16 years of age or older may only use the Services if the minor’s subscription is purchased by, and the minor is under the responsibility of, the minor’s parent or legal guardian.  
-https://assets.citibikenyc.com/rental-agreement.html  
+**Part 1 Outliers **  
+Based on the variable descriptions in section 2, we want to look into more details to check if there are any outliers and for those outliers, whether they are purely wrong data input that we can remove or if we need to correct data. Identifying outliers by plotting helps analysis. Boxplots and bar charts were created for this purpose.  
+ 
 \newline
+Especially We want to check tripduration and age. One month bike trip data 201906 was randomly selected to analyze the outliers.
 
 ```{r}
-library(dplyr)
-library(mi)
-library(ggplot2)
-library(forcats)
-```
 
-
-
-```{r}
 library(tidyverse)
-data_201806 <- read.csv("rendered_data/201806-citibike-tripdata.csv",sep=",")
+
 ```
 
 ```{r}
 data_201906 <- read.csv("rendered_data/201906-citibike-tripdata.csv",sep=",")
-```
-
-```{r}
-data_202006 <- read.csv("rendered_data/202006-citibike-tripdata.csv",sep=",")
-```
-
-```{r}
-str(data_201806)
-```
-
-```{r}
 #Add Age column
-data_201806$age=2020-data_201806$birth.year
+data_201906$age=2020-data_201906$birth.year
+data_201906$year_month="201906"
+
+str(data_201906)
 ```
 
 ```{r}
-data_201806$year_month="201806"
-```
+ggplot(data_201906, aes(x=tripduration/3600)) +
+geom_boxplot(color = "darkgrey", fill = "steelblue2") +
+xlab("tripduration (hour)")+
+ggtitle("201906-tripduration-distribution")
 
-```{r}
-str(data_201806)
 ```
-## Variable outliers  
-We want to check tripduration and age  
-\newline
-Identifying outliers using plots and fitting models is relatively easy compared to what to do after identifying the outliers. Outliers can be rare cases, unusual values, or genuine errors. Genuine errors must be corrected if possible or else they must be removed.  
-\newline
+From above boxplot, we see a lot of outliers, there are some abanomal trip duration, we want to bin the tripduration to check in more details. 
 
-```{r}
-ggplot(data_201806, aes(x=tripduration)) +
-geom_boxplot(color = "darkgrey", fill = "lightBlue") +
-ggtitle("201806-tripduration-distribution")
-```
 
 ```{r}
 # we created a column to categorize tripduration  
 # website data source already removed duration less than 60 secs
-data_201806$tripduration.bin<-sapply(data_201806$tripduration, function(x) 
+data_201906$tripduration.bin<-sapply(data_201906$tripduration, function(x) 
                                            if (x<=3600) "less than 1h"
                                       else if (x<= 21600) "1h to 6h"
                                       else if (x<= 43200) "6h to 12h"
@@ -74,53 +44,60 @@ data_201806$tripduration.bin<-sapply(data_201806$tripduration, function(x)
 ```
 
 ```{r}
-str(data_201806)
-```
-
-```{r}
-data_201806 %>%
+data_201906 <- data_201906 %>%
   mutate(tripduration.bin=fct_relevel(tripduration.bin, c("less than 1h",
                                                           "1h to 6h",
                                                           "6h to 12h",
                                                           "12h to 24h",
-                                                          "more than 24h"))) %>%
-  ggplot(aes(x = tripduration.bin)) +
-  geom_bar(color="black", fill = "lightblue") +
-  ggtitle("201806-tripduration-distribution")
+                                                          "more than 24h")))
+
+  ggplot(data = data_201906,aes( x = tripduration.bin)) +
+  geom_bar(color="black", fill = "steelblue2") +
+  ggtitle("201906-tripduration-distribution")
+
 ```
 
-```{r}
-ggplot(data_201806, aes(x=age)) +
-geom_boxplot( fill = "lightBlue") +
-ggtitle("201806-Age-distribution")
-```
-
-
-```{r}
-ggplot(data_201806, aes(x=age)) +
-geom_histogram(color="black", fill = "steelblue1", binwidth=5) +
-ggtitle("201806-Age-distribution")
-```
+From vertical bar chart, we can see most of the trips are less than 1 hour, and a few trip between 1 to 24 hours. For trips more than 24 hours, we define them as outliers and removed associated rows. It's possible for the trip more than 12 hours, for example, it starts at 5:00 am and ends at 9:00pm if a person is interested to tour the whole Mahattan from north to south and from east to west. However, for trips more than 1 day, they are very rare cases. There are many different reasons that cause the trip more than 24 hours, for example, system error, the bike is stolen or a person forgot to return the bike...  
+\newline
+Next we look into ages.
 
 
 ```{r}
-ggplot(data_201806, aes(x=age, y=tripduration)) + 
-  geom_point(color="blue") +
+ggplot(data_201906, aes(x=age)) +
+geom_boxplot( fill = "steelblue2") +
+scale_x_continuous(breaks=seq(0,150,10))+
+ggtitle("201906-Age-Distribution")
+```
+
+
+```{r}
+ggplot(data_201906, aes(x=age)) +
+geom_histogram(color="black", fill = "steelblue2", binwidth=5) +
+scale_x_continuous(breaks=seq(0,150,10))+
+scale_y_continuous(breaks=seq(0,500000,50000))+
+ggtitle("201906-Age-Distribution")
+```
+
+
+```{r}
+ggplot(data_201906, aes(x=age, y=tripduration/3600)) + 
+  geom_point(color="steelblue2") +
+  ylab("tripduration (hour)")+
   ggtitle("Scatterplot for tripduration vs Age")
 
 ```
 
+
 \newline
-After checking data_201806,we did same analysis for data_201906, data_202006 as well
+From the boxlpot and histogram, we can see most of the trips made by age between 20 and 70. However, there some abnoraml ages which are even more than 120.  
+To better present the data for further analysis, we define age above 100 as outliers and removed those data.   
+Also, another boundary to mention, according to the rental agreement, 'You may not ride a Bicycle if You are under 16 years of age. A minor who is 16 years of age or older may only use the Services if the minor’s subscription is purchased by, and the minor is under the responsibility of, the minor’s parent or legal guardian.' https://assets.citibikenyc.com/rental-agreement.html We checked data range, there is no record for age below 16.  
 
-```{r}
-
-```
-
+\newline
+To summarize, we have defined tripduration more than 24 hours and age above 100 years old as outliers and removed those rows.  
 
 
-**Part 2 Data Transformation **  
+**Part 2 Data Transformation**
 
 [Since each file contains more than Million rows, it's very slow to perform data transformation in R. We used Mysql server to process our data, all the SQL code have been used to generate datasets are located here:] https://github.com/xguo7013/NYC-Bike-Share/tree/main/sql
-
 
