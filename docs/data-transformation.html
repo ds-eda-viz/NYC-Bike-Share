@@ -133,7 +133,7 @@ Based on the variable descriptions in section 2, we want to look into more detai
 ##  $ gender                 : int  1 2 2 1 1 1 1 1 1 1 ...
 ##  $ age                    : num  28 33 30 33 47 31 25 30 50 40 ...
 ##  $ year_month             : chr  &quot;201906&quot; &quot;201906&quot; &quot;201906&quot; &quot;201906&quot; ...</code></pre>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<p><img src="finalproj_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 From above boxplot, we see a lot of outliers, there are some abanomal trip duration, we want to bin the tripduration to check in more details.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>From vertical bar chart, we can see most of the trips are less than 1 hour, and a few trip between 1 to 24 hours. For trips more than 24 hours, we define them as outliers and removed associated rows. It’s possible for the trip more than 12 hours, for example, it starts at 5:00 am and ends at 9:00pm if a person is interested to tour the whole Mahattan from north to south and from east to west. However, for trips more than 1 day, they are very rare cases. There are many different reasons that cause the trip more than 24 hours, for example, system error, the bike is stolen or a person forgot to return the bike…<br />
