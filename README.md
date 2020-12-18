@@ -1,7 +1,6 @@
 This is the repository of the final project of STAT 5702 EDA and data visualization, Fall 2020, at Columbia University.   
 The work is done by Xiaonan Guo(xg2308), Gaoyi Shi (g32012), Kenny Jin (jj3134) and Jiayin Lin (jl5802).
 
-Citibike project.....
 
 " Citi Bike is a privately owned public bicycle sharing system serving the New York City boroughs of the Bronx, Brooklyn, Manhattan, and Queens, as well as Jersey City, New Jersey. Named after lead sponsor Citigroup, it is operated by Motivate (formerly Alta Bicycle Share), with former Metropolitan Transportation Authority CEO Jay Walder as chief executive until September 30, 2018[1] when the company was acquired by Lyft. The system's bikes and stations use BIXI-branded technology from PBSC Urban Solutions.
 
